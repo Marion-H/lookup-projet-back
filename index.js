@@ -13,4 +13,9 @@ app.get('/', (req, res) => {
 app.listen(PORT, (err) => {
     if (err) throw new Error(err.message);
     console.log(`Server is running on htpp://localhost:${PORT}`);
+    console.log(process.env.NODE_ENV)
 })
+
+if (process.env.NODE_ENV === 'test'){
+    module.exports = app
+}
