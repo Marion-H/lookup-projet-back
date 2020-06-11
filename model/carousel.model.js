@@ -25,3 +25,5 @@ const Carousel = sequelizeInstance.define("Carousel",{
         allowNull: false,
     }
 })
+
+module.exports=Carousel;

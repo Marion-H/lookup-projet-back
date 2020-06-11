@@ -8,6 +8,10 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+app.use(express.json())
+
+app.use('/carousels', carousel);
+
 app.get('/', (req, res) => {
     res.status(200).send("Here is our API!")
 })
@@ -25,7 +29,7 @@ async function main(){
         
         
     }catch(err){
-        console.log('Unable to join database'.err.message);
+        console.log('Unable to join database',err.message);
     }
 }
 
