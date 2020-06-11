@@ -1,0 +1,9 @@
+POST http://localhost:8000/carousels 
+Content-Type: application/json
+
+{
+    "titre": "test",
+    "descriptif": "Loreum ipsum",
+    "lien": "http://www.test.fr",
+    "image": "test"
+}

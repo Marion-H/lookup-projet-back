@@ -22,15 +22,27 @@ chai.use(chaiHttp);
 //     })
 // })
 
-describe("get all carousel",() => {
-    it("should return an array of carousel", async () => {
+// describe("get all carousel",() => {
+//     it("should return an array of carousel", async () => {
+//         try{
+//             const res = await chai.request(server).get("/carousel");
+//             res.body.should.be.a("object");
+//             res.body.should.have.keys(["id", "title", "description", "link", "picture"]);
+//         } catch(err){
+//             throw err;
+//         }
+//     })
+// })
+
+describe("post a carousel",() => {
+    it("should post new carousel", async () => {
         try{
-            const res = await chai.request(server).get("/carousel");
-            res.body.should.be.a("array");
-            res.body[0].should.have.keys(['id','title','description','link','picture','createdAt','updatedAt'])
+            const res = await chai.request(server).post("/carousel");
+            res.should.have.status(201);
+            res.body.should.be.a("object");
+            res.body.should.have.keys(["id", "title", "description", "link", "picture","createdAt","updatedAt"]);
         } catch(err){
             throw err;
         }
     })
 })
-
