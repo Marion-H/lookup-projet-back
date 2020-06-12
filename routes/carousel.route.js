@@ -26,4 +26,20 @@ carousel.post("/", async (req, res) =>{
     }
 });
 
+carousel.put("/:uuid", async (req, res) => {
+    const {uuid} = req.params;
+    const { title, description, link, picture } = req.body;
+
+    try{
+        const carousel = await Carousel.update({title, description, link, picture}, { where: {uuid}  })
+        
+        res.status(204).json(carousel);
+    }catch(err){
+        res.status(400).json({
+            status: "error",
+            message: "invalid request",
+        })
+    }
+})
+
 module.exports=carousel;

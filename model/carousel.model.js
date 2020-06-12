@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const sequelizeInstance = require("../sequelize");
 
 const Carousel = sequelizeInstance.define("Carousel",{
-    id: {
+    uuid: {
         type: Sequelize.UUID,
         allowNull: false,
         primaryKey: true,

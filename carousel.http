@@ -2,8 +2,20 @@ POST http://localhost:8000/carousels
 Content-Type: application/json
 
 {
-    "titre": "test",
-    "descriptif": "Loreum ipsum",
-    "lien": "http://www.test.fr",
-    "image": "test"
+    "title": "test2",
+    "description": "Loreum ipsum",
+    "link": "http://www.test.fr",
+    "picture": "test"
+}
+
+###
+GET http://localhost:8000/carousels
+
+
+###
+PUT http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca433d834 
+Content-Type: application/json
+
+{
+    "title": "Toto",
 }
