@@ -20,17 +20,19 @@ const carouselKey = [
   "updatedAt",
 ];
 
+let carousel ;
+
 describe("CAROUSSEL", () => {
   before(async () => {
     await sequelize.sync({ force: true });
 
-    await Carousel.create({
-    //   uuid: "52da6422-1c9c-46e1-9685-ec7ca433d834",
+    carousel = await Carousel.create({
       title: "test",
       description: "Loreum ipsum",
       link: "https://www.test.fr",
       picture: "https://www.test.fr/test.jpg",
     });
+    
   });
 
   describe("get all carousel", () => {
@@ -52,7 +54,7 @@ describe("CAROUSSEL", () => {
       try {
         const res = await chai
           .request(server)
-          .get(`/carousels/${Carousel.uuid}`);
+          .get(`/carousels/${carousel.uuid}`);
           res.should.have.status(200);
           res.body.should.be.a("object");
       } catch (err) {
@@ -77,21 +79,22 @@ describe("CAROUSSEL", () => {
         throw err;
       }
     });
-    // it("should fail to create", async () => {
-    //     try{
-    //         const res = await chai
-    //         .request(server)
-    //         .post("/carousels")
-    //         .send({
-    //             title: "test"
-    //         })
-    //         res.body.should.have.status(422)
-    //         res.body.should.be.a("object");
-    //         res.body.should.have.keys(["status","message"]);
-    //     } catch(err){
-    //         throw err;
-    //     }
-    // })
+    it("should fail to create", async () => {
+        try{
+            const res = await chai
+            .request(server)
+            .post("/carousels")
+            .send({
+                title: "test"
+            })
+            console.log(res.body)
+            res.should.have.status(422)
+            res.body.should.be.a("object");
+            res.body.should.have.keys(["status","message"]);
+        } catch(err){
+            throw err;
+        }
+    })
   });
 
   describe("put a carousel", () => {
@@ -99,8 +102,7 @@ describe("CAROUSSEL", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/carousels/${Carousel.uuid}`);
-
+          .put(`/carousels/${carousel.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {

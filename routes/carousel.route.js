@@ -50,7 +50,7 @@ carousel.post("/", async (req, res) => {
   }
 });
 
-carousel.put("/:uuid", async (req, res) => {
+carousel.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const { uuid } = req.params;
   const { title, description, link, picture } = req.body;
 

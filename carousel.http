@@ -16,7 +16,7 @@ GET http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca433d834
 
 
 ###
-PUT http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca433d834 
+PUT http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca
 Content-Type: application/json
 
 {
