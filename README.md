@@ -10,6 +10,7 @@
 - git clone
 - npm install
 - npm run dev : Start local development server using nodemon
+- create an .env file at the root of the folder to be able to connect to your database 
 
 
 ## Execution and writing of tests
