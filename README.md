@@ -11,6 +11,11 @@
 - npm install
 - npm run dev : Start local development server using nodemon
 - create an .env file at the root of the folder to be able to connect to your database 
+    - exemple file .env :
+        - DB_HOST=localhost
+        - DB_USER=toto
+        - DB_PASSWORD=superpassword
+        - DB_NAME=tables
 
 
 ## Execution and writing of tests
