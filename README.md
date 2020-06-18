@@ -16,6 +16,7 @@
         - DB_USER=toto
         - DB_PASSWORD=superpassword
         - DB_NAME=tables
+        - DB_DIALECT=mysql
 
 
 ## Execution and writing of tests
