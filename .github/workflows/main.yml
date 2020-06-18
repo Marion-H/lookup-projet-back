@@ -42,3 +42,4 @@ jobs:
           DB_PASSWORD: postgres
           DB_DIALECT: postgres
           DB_DATABASE: postgres
+          DB_TEST: postgres
