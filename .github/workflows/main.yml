@@ -39,6 +39,7 @@ jobs:
           PORT: 6000
           DB_HOST: localhost
           DB_USER: postgres
-          DB_PW: postgres
+          DB_PASSWORD: postgres
           DB_DIALECT: postgres
           DB_DATABASE: postgres
+          DB_TEST: postgres
