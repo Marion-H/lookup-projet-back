@@ -17,6 +17,7 @@
         - DB_PASSWORD=superpassword
         - DB_NAME=tables
         - DB_DIALECT=mysql
+        - DB_TEST=test
 
 
 ## Execution and writing of tests
