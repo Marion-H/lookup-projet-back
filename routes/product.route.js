@@ -54,10 +54,28 @@ product.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
       },
       { where: { uuid } }
     );
-    res.sendStatus(204);
+    res.status(204).send(products);
   } catch (err) {
     res.status(400).json(err);
   }
 });
+
+product.delete(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    try {
+      const products = await Product.destroy({ where: { uuid } });
+
+      res.status(204).json(products);
+    } catch (err) {
+      res.status(404).json({
+        status: "error",
+        message: "product not found",
+      });
+    }
+  }
+);
 
 module.exports = product;

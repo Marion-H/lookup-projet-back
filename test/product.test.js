@@ -78,6 +78,7 @@ describe("PRODUCT", () => {
       }
     });
   });
+
   describe("modify a product", () => {
     it("should modify a product", async () => {
       try {
@@ -85,6 +86,20 @@ describe("PRODUCT", () => {
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (error) {
+        throw err;
+      }
+    });
+  });
+
+  describe("delete a signle product", () => {
+    it("should delete a single product", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/products/${product.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
         throw err;
       }
     });
