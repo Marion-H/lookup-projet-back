@@ -60,4 +60,22 @@ describe("PRODUCT", () => {
       }
     });
   });
+
+  describe("post a new product", () => {
+    it("should create a new product", async () => {
+      try {
+        const res = await chai.request(server).post("/products").send({
+          name: "test2",
+          price: "13",
+          description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          picture: "https//www.test.fr/test2.jpg",
+        });
+        res.should.have.status(201);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(productKey);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 });

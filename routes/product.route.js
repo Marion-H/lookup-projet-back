@@ -18,11 +18,26 @@ product.get("/", async (req, res) => {
 
 product.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
-  const products = await Product.findOne({ where: { uuid } });
   try {
+    const products = await Product.findOne({ where: { uuid } });
     res.status(200).json(products);
   } catch (err) {
     res.status(400).json(err);
+  }
+});
+
+product.post("/", async (req, res) => {
+  const { name, price, description, picture } = req.body;
+  try {
+    const products = await Product.create({
+      name,
+      price,
+      description,
+      picture,
+    });
+    res.status(201).json(products);
+  } catch (error) {
+    res.status(422).json(error);
   }
 });
 
