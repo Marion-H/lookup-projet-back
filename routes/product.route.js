@@ -41,4 +41,23 @@ product.post("/", async (req, res) => {
   }
 });
 
+product.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+  const uuid = req.params.uuid;
+  const { name, price, description, picture } = req.body;
+  try {
+    const products = await Product.update(
+      {
+        name,
+        price,
+        description,
+        picture,
+      },
+      { where: { uuid } }
+    );
+    res.sendStatus(204);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = product;

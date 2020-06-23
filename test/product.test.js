@@ -78,4 +78,15 @@ describe("PRODUCT", () => {
       }
     });
   });
+  describe("modify a product", () => {
+    it("should modify a product", async () => {
+      try {
+        const res = await chai.request(server).put(`/products/${product.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (error) {
+        throw err;
+      }
+    });
+  });
 });
