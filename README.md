@@ -15,7 +15,7 @@
         - DB_HOST=localhost
         - DB_USER=toto
         - DB_PASSWORD=superpassword
-        - DB_NAME=tables
+        - DB_DATABASE=api_test
         - DB_DIALECT=mysql
 
 

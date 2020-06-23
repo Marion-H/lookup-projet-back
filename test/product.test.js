@@ -91,7 +91,7 @@ describe("PRODUCT", () => {
     });
   });
 
-  describe("delete a signle product", () => {
+  describe("delete a single product", () => {
     it("should delete a single product", async () => {
       try {
         const res = await chai
