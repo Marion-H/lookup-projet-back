@@ -42,3 +42,6 @@ Content-Type: application/json
     "link": "http://www.test.fr",
     "picture": "test"    
 }
+
+###
+DELETE http://localhost:8000/carousels/3a6a2366-8ab4-47aa-a6a2-746443fff6b4
