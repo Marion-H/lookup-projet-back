@@ -1,3 +1,22 @@
+GET http://localhost:8000/carousels/
+
+
+###
+
+POST http://localhost:8000/carousels 
+Content-Type: application/json
+
+{
+    "title": "Hello3",
+    "description": "je suis une image",
+    "link": "http://postme.jpg",
+    "picture": "postpic.jpg"
+}
+
+
+###
+
+
 POST http://localhost:8000/carousels 
 Content-Type: application/json
 
@@ -5,23 +24,21 @@ Content-Type: application/json
     "titl": "Hello3"
 }
 
-###
-GET http://localhost:8000/carousels/
 
 ###
 
-GET http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca433d834 
+GET http://localhost:8000/carousels/3a6a2366-8ab4-47aa-a6a2-746443fff6b4 
 
 
 
 
 ###
-PUT http://localhost:8000/carousels/52da6422-1c9c-46e1-9685-ec7ca
+PUT http://localhost:8000/carousels/3a6a2366-8ab4-47aa-a6a2-746443fff6b4
 Content-Type: application/json
 
 {
-    "title": "Salut Jean",
-    "description": "Loreum ipsum",
+    "title": "Salut JeanMich",
+    "description": "Loreum ipsum indolor",
     "link": "http://www.test.fr",
     "picture": "test"    
 }

@@ -7,8 +7,6 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const Carousel = require("../model/carousel.model");
 
-
-
 carousel.get("/", async (req, res) => {
   const carousels = await Carousel.findAll();
   try {
@@ -18,16 +16,16 @@ carousel.get("/", async (req, res) => {
   }
 });
 
-carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp),async (req, res) => {
+carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
-  try{
-      const carousel = await Carousel.findOne({ where: {uuid}})
-      res.status(200).json(carousel)
-  }catch(err){
+  try {
+    const carousel = await Carousel.findOne({ where: { uuid } });
+    res.status(200).json(carousel);
+  } catch (err) {
     res.status(422).json({
-        status: "error",
-        message: "invalid request",
-      });
+      status: "error",
+      message: "invalid request",
+    });
   }
 });
 
@@ -68,5 +66,23 @@ carousel.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
     });
   }
 });
+
+carousel.delete(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    try {
+      const carousel = await Carousel.destroy({ where: { uuid } });
+
+      res.status(204).json(carousel);
+    } catch (err) {
+      res.status(404).json({
+        status: "error",
+        message: "carousel not found",
+      });
+    }
+  }
+);
 
 module.exports = carousel;

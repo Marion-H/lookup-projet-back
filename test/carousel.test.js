@@ -20,7 +20,7 @@ const carouselKey = [
   "updatedAt",
 ];
 
-let carousel ;
+let carousel;
 
 describe("CAROUSSEL", () => {
   before(async () => {
@@ -32,7 +32,6 @@ describe("CAROUSSEL", () => {
       link: "https://www.test.fr",
       picture: "https://www.test.fr/test.jpg",
     });
-    
   });
 
   describe("get all carousel", () => {
@@ -55,8 +54,8 @@ describe("CAROUSSEL", () => {
         const res = await chai
           .request(server)
           .get(`/carousels/${carousel.uuid}`);
-          res.should.have.status(200);
-          res.body.should.be.a("object");
+        res.should.have.status(200);
+        res.body.should.be.a("object");
       } catch (err) {
         throw err;
       }
@@ -80,21 +79,18 @@ describe("CAROUSSEL", () => {
       }
     });
     it("should fail to create", async () => {
-        try{
-            const res = await chai
-            .request(server)
-            .post("/carousels")
-            .send({
-                title: "test"
-            })
-            console.log(res.body)
-            res.should.have.status(422)
-            res.body.should.be.a("object");
-            res.body.should.have.keys(["status","message"]);
-        } catch(err){
-            throw err;
-        }
-    })
+      try {
+        const res = await chai.request(server).post("/carousels").send({
+          title: "test",
+        });
+        console.log(res.body);
+        res.should.have.status(422);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(["status", "message"]);
+      } catch (err) {
+        throw err;
+      }
+    });
   });
 
   describe("put a carousel", () => {
@@ -103,6 +99,20 @@ describe("CAROUSSEL", () => {
         const res = await chai
           .request(server)
           .put(`/carousels/${carousel.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
+  describe("delete a carousel", () => {
+    it("should delete a single carousel", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/carousels/${carousel.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
