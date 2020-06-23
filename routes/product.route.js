@@ -16,4 +16,14 @@ product.get("/", async (req, res) => {
   }
 });
 
+product.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+  const uuid = req.params.uuid;
+  const products = await Product.findOne({ where: { uuid } });
+  try {
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 module.exports = product;
