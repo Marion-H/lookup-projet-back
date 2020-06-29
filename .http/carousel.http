@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8000/carousels/3a6a2366-8ab4-47aa-a6a2-746443fff6b4 
+GET http://localhost:8000/carousels/b0f4005b-05bd-4e0e-9f2d-31e843329c6c
 
 
 

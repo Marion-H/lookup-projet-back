@@ -1,6 +1,6 @@
 require("dotenv").config();
 const express = require("express");
-const helmet = require("helmet")
+const helmet = require("helmet");
 
 const sequelize = require("./sequelize");
 require('./association')
@@ -8,17 +8,19 @@ require('./association')
 const carousel = require("./routes/carousel.route");
 const product = require("./routes/product.route");
 const product_info = require("./routes/product_info.route")
+const lookup = require("./routes/lookup.route");
 
 const app = express();
 
 const PORT = process.env.PORT || 8000;
 
-app.use(helmet())
+app.use(helmet());
 app.use(express.json());
 
 app.use("/carousels", carousel);
 app.use("/products", product);
 app.use("/products_info", product_info)
+app.use("/admin", lookup);
 
 app.get("/", (req, res) => {
   res.status(200).send("Here is our API!");

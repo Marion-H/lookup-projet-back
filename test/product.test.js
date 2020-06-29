@@ -24,7 +24,8 @@ let product;
 
 describe("PRODUCT", () => {
   before(async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force : true });
+    
 
     product = await Product.create({
       name: "test",
