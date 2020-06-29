@@ -19,7 +19,7 @@ carousel.get("/", async (req, res) => {
 carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const carousel = await Carousel.findOne({ where: { uuid } });
+    const carousel = await Carousel.findByPk(uuid);
     res.status(200).json(carousel);
   } catch (err) {
     res.status(422).json({

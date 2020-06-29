@@ -19,7 +19,7 @@ product.get("/", async (req, res) => {
 product.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const products = await Product.findOne({ where: { uuid } });
+    const products = await Product.findByPk(uuid);
     res.status(200).json(products);
   } catch (err) {
     res.status(400).json(err);

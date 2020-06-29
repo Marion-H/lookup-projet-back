@@ -1,0 +1,19 @@
+GET http://localhost:8000/admin/41d402a0-bdbe-45bf-a59a-d5428a48e4a5
+
+
+###
+
+POST http://localhost:8000/admin
+Content-Type: application/json
+
+{
+    "companyName": "Lookup",
+    "streetNumber": 12,
+    "streetName": "allée des sabots sans chevaux",
+    "postalCode": 40200,
+    "city": "Tarnos",
+    "email": "anthonin@lookup.com",
+    "phone": 699227722,
+    "siret": "12345678901234",
+    "password": "toto55"
+}
