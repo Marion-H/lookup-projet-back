@@ -29,7 +29,8 @@ let lookup;
 
 describe("LOOKUP", () => {
   before(async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force : true });
+    
 
     lookup = await Lookup.create({
       companyName: "Lookup",

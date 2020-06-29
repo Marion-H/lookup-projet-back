@@ -24,7 +24,8 @@ let carousel;
 
 describe("CAROUSSEL", () => {
   before(async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force : true });
+
 
     carousel = await Carousel.create({
       title: "test",
