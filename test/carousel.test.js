@@ -26,6 +26,7 @@ describe("CAROUSSEL", () => {
   before(async () => {
     await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
     await sequelize.sync({ force: true });
+    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1', { raw: true })
 
     carousel = await Carousel.create({
       title: "test",
