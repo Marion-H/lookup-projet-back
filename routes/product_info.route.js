@@ -23,7 +23,7 @@ product_info.get(
   async (req, res) => {
     const uuid = req.params.uuid;
     try {
-      const products = await ProductInfo.findOne({ where: { uuid } });
+      const products = await ProductInfo.findOne({include : {model : Product}},{ where: { uuid } });
       res.status(200).json(products);
     } catch (err) {
       res.status(400).json(err);
@@ -53,7 +53,7 @@ product_info.put(
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const uuid = req.params.uuid;
-    const { title, description, picture, picture2, picture3 } = req.body;
+    const { title, description, picture, picture2, picture3 ,ProductUuid} = req.body;
     try {
       await ProductInfo.update(
         {
@@ -62,6 +62,7 @@ product_info.put(
           picture,
           picture2,
           picture3,
+          ProductUuid
         },
         { where: { uuid } }
       );

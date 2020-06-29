@@ -10,11 +10,12 @@ Content-Type: application/json
   "description": "Lorem ipsum",
   "picture":"star.jpg",
   "picture2":"star2.jpg",
-  "picture3":"star3.jpg"
+  "picture3":"star3.jpg",
+  "ProductUuid": "2ac9b93b-bc08-4078-bb19-dc448af87322"
 }
 
 ###
-PUT http://localhost:8000/products_info/43c534b7-6783-46d4-bd78-9c9bbc331347
+PUT http://localhost:8000/products_info/bbd20e24-964d-4e3c-a21e-217cdd62d96f
 Content-Type: application/json
 
 {
