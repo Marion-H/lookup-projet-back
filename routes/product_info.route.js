@@ -70,4 +70,21 @@ product_info.put(
   }
 );
 
+product_info.delete(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const uuid = req.params.uuid;
+    try {
+      await ProductInfo.destroy({ where: { uuid } });
+      res.status(204).end();
+    } catch (error) {
+      res.status(404).json({
+        status: "error",
+        message: "product not found",
+      });
+    }
+  }
+);
+
 module.exports = product_info;

@@ -53,7 +53,9 @@ describe("PRODUCT INFO", () => {
   describe("get unique product info", () => {
     it("should return an unique product info", async () => {
       try {
-        const res = await chai.request(server).get(`/products_info/${productInfo.uuid}`);
+        const res = await chai
+          .request(server)
+          .get(`/products_info/${productInfo.uuid}`);
         res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.should.have.keys(product_info_key);
@@ -67,11 +69,11 @@ describe("PRODUCT INFO", () => {
     it("should create a new product info", async () => {
       try {
         const res = await chai.request(server).post("/products_info").send({
-            title: "test",
-            description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-            picture: "https//www.test.fr/test.jpg",
-            picture2: "https//www.test.fr/test.jpg",
-            picture3: "https//www.test.fr/test.jpg",
+          title: "test",
+          description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          picture: "https//www.test.fr/test.jpg",
+          picture2: "https//www.test.fr/test.jpg",
+          picture3: "https//www.test.fr/test.jpg",
         });
         res.should.have.status(201);
         res.body.should.be.a("object");
@@ -85,7 +87,9 @@ describe("PRODUCT INFO", () => {
   describe("modify a product info", () => {
     it("should modify a product info", async () => {
       try {
-        const res = await chai.request(server).put(`/products_info/${productInfo.uuid}`);
+        const res = await chai
+          .request(server)
+          .put(`/products_info/${productInfo.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -94,4 +98,16 @@ describe("PRODUCT INFO", () => {
     });
   });
 
+  describe("delete a single product", () => {
+    it("should delete a single product info", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/products_info/${productInfo.uuid}`);
+        res.should.have.status(204);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 });
