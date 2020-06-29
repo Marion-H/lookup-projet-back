@@ -60,19 +60,40 @@ describe("LOOKUP", () => {
     it("should post a unique user", async () => {
       try {
         const res = await chai.request(server).post("/admin").send({
+          email: "anthonin@lookup.com",
+          password: "toto55",
           companyName: "Lookup",
           streetNumber: 12,
           streetName: "allée des sabots sans chevaux",
           postalCode: 40200,
           city: "Tarnos",
-          email: "anthonin@lookup.com",
           phone: 06,
           siret: "12345678901234",
-          password: "toto55",
         });
         res.should.have.status(201);
         res.should.be.a("object");
-        res.body.should.have.keys(lookupKeys);
+      } catch (error) {
+        throw error;
+      }
+    });
+  });
+  describe("update admin profile", () => {
+    it("should update the admin profile", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .put(`/admin/${lookup.uuid}`)
+          .send({
+            companyName: "Lookup",
+            streetNumber: 12,
+            streetName: "allée des sabots sans chevaux",
+            postalCode: 40200,
+            city: "Tarnos",
+            phone: 06,
+            siret: "12345678901234",
+          });
+        res.should.have.status(204);
+        res.should.be.a("object");
       } catch (error) {
         throw error;
       }
