@@ -1,0 +1,22 @@
+####
+GET http://localhost:8000/products_info
+
+###
+POST http://localhost:8000/products_info
+Content-Type: application/json
+
+{
+    "title": "Hello",
+  "description": "Lorem ipsum",
+  "picture":"star.jpg",
+  "picture2":"star2.jpg",
+  "picture3":"star3.jpg"
+}
+
+###
+PUT http://localhost:8000/products_info/43c534b7-6783-46d4-bd78-9c9bbc331347
+Content-Type: application/json
+
+{
+    "title":"Bravo"
+}

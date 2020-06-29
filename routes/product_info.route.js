@@ -46,4 +46,28 @@ product_info.post("/", async (req, res) => {
   }
 });
 
+product_info.put(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const uuid = req.params.uuid;
+    const { title, description, picture, picture2, picture3 } = req.body;
+    try {
+      await ProductInfo.update(
+        {
+          title,
+          description,
+          picture,
+          picture2,
+          picture3,
+        },
+        { where: { uuid } }
+      );
+      res.status(204).end();
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  }
+);
+
 module.exports = product_info;

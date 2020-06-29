@@ -85,7 +85,7 @@ describe("PRODUCT", () => {
         const res = await chai.request(server).put(`/products/${product.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
-      } catch (error) {
+      } catch (err) {
         throw err;
       }
     });
