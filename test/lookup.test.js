@@ -29,9 +29,7 @@ let lookup;
 
 describe("LOOKUP", () => {
   before(async () => {
-    await sequelize.drop()
-    await sequelize.init()
-    await sequelize.sync();
+    await sequelize.sync({force : true });
     
 
     lookup = await Lookup.create({

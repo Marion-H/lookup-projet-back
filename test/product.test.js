@@ -24,9 +24,7 @@ let product;
 
 describe("PRODUCT", () => {
   before(async () => {
-    await sequelize.drop()
-    await sequelize.init()
-    await sequelize.sync();
+    await sequelize.sync({force : true });
     
 
     product = await Product.create({
