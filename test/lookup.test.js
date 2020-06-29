@@ -29,9 +29,10 @@ let lookup;
 
 describe("LOOKUP", () => {
   before(async () => {
-    await sequelize.query('SET FOREIGN_KEY_CHECKS = 0', { raw: true })
-    await sequelize.sync({ force: true });
-    await sequelize.query('SET FOREIGN_KEY_CHECKS = 1', { raw: true })
+    await sequelize.drop()
+    await sequelize.init()
+    await sequelize.sync();
+    
 
     lookup = await Lookup.create({
       companyName: "Lookup",
