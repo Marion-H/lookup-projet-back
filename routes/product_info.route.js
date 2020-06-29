@@ -6,9 +6,10 @@ const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const ProductInfo = require("../model/product_info.model");
+const Product = require("../model/product.model")
 
 product_info.get("/", async (req, res) => {
-  const products = await ProductInfo.findAll();
+  const products = await ProductInfo.findAll({include : {model : Product}});
   try {
     res.status(200).json(products);
   } catch (err) {
@@ -31,7 +32,7 @@ product_info.get(
 );
 
 product_info.post("/", async (req, res) => {
-  const { title, description, picture, picture2, picture3 } = req.body;
+  const { title, description, picture, picture2, picture3 ,ProductUuid} = req.body;
   try {
     const products = await ProductInfo.create({
       title,
@@ -39,6 +40,7 @@ product_info.post("/", async (req, res) => {
       picture,
       picture2,
       picture3,
+      ProductUuid
     });
     res.status(201).json(products);
   } catch (error) {
