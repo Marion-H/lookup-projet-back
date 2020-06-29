@@ -24,7 +24,8 @@ app.get("/", (req, res) => {
 
 async function main() {
   try {
-    await sequelize.sync({force:true});
+    await sequelize.query("SET FOREIGN_KEY_CHECKS = 0", { raw: true });
+    await sequelize.sync({ force: true });
     await sequelize.authenticate();
     console.log("Database succesfully joined");
     app.listen(PORT, (err) => {
