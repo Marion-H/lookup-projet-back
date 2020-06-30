@@ -63,6 +63,35 @@ describe("CONFERENCE", () => {
     });
   });
 
+  describe("post a conference", () => {
+    it("should post new conference", async () => {
+      try {
+        const res = await chai.request(server).post("/conferences").send({
+            title: "test",
+            subject: "Loreum ipsum",
+            date: "1990-05-28",
+            picture: "https://www.test.fr/test.jpg",
+        });
+        res.should.have.status(201);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(conferenceKey);
+      } catch (err) {
+        throw err;
+      }
+    });
+    it("should fail to create", async () => {
+      try {
+        const res = await chai.request(server).post("/conferences").send({
+          titl: "test",
+        });
+        res.should.have.status(422);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(["status", "message"]);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
   
 
 });
