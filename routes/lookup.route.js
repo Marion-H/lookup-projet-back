@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const authRole = require("../middlewares/authRole");
 
 const lookup = express.Router();
 
@@ -35,8 +36,6 @@ lookup.post("/", async (req, res) => {
   }
 });
 
-// const secret = "zkP8a2Pbw3SNKzHE2dW9PfhkKYzcVt55S8WAB7ZC";
-
 lookup.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -57,34 +56,38 @@ lookup.post("/login", async (req, res) => {
   }
 });
 
-lookup.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
-  const { uuid } = req.params;
-  const {
-    companyName,
-    streetName,
-    streetNumber,
-    postalCode,
-    city,
-    phone,
-    siret,
-  } = req.body;
-  try {
-    const lookup = await Lookup.update(
-      {
-        companyName,
-        streetName,
-        streetNumber,
-        postalCode,
-        city,
-        phone,
-        siret,
-      },
-      { where: { uuid } }
-    );
-    res.status(204).json(lookup);
-  } catch (error) {
-    res.status(400).json(error);
+lookup.put(
+  "/login/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    const {
+      companyName,
+      streetName,
+      streetNumber,
+      postalCode,
+      city,
+      phone,
+      siret,
+    } = req.body;
+    try {
+      const lookup = await Lookup.update(
+        {
+          companyName,
+          streetName,
+          streetNumber,
+          postalCode,
+          city,
+          phone,
+          siret,
+        },
+        { where: { uuid } }
+      );
+      res.status(204).json(lookup);
+    } catch (error) {
+      res.status(400).json(error);
+    }
   }
-});
+);
 
 module.exports = lookup;
