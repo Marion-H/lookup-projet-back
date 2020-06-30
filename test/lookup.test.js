@@ -29,8 +29,7 @@ let lookup;
 
 describe("LOOKUP", () => {
   before(async () => {
-    await sequelize.sync({force : true });
-    
+    await sequelize.sync({ force: true });
 
     lookup = await Lookup.create({
       companyName: "Lookup",
@@ -63,13 +62,6 @@ describe("LOOKUP", () => {
         const res = await chai.request(server).post("/admin").send({
           email: "anthonin@lookup.com",
           password: "toto55",
-          companyName: "Lookup",
-          streetNumber: 12,
-          streetName: "allée des sabots sans chevaux",
-          postalCode: 40200,
-          city: "Tarnos",
-          phone: 06,
-          siret: "12345678901234",
         });
         res.should.have.status(201);
         res.should.be.a("object");
@@ -83,7 +75,7 @@ describe("LOOKUP", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/admin/${lookup.uuid}`)
+          .put(`/admin/login/${lookup.uuid}`)
           .send({
             companyName: "Lookup",
             streetNumber: 12,
@@ -93,7 +85,7 @@ describe("LOOKUP", () => {
             phone: 06,
             siret: "12345678901234",
           });
-        res.should.have.status(204);
+        res.should.have.status(201);
         res.should.be.a("object");
       } catch (error) {
         throw error;
