@@ -48,4 +48,21 @@ describe("CONFERENCE", () => {
       }
     });
   });
+
+  describe("get a conference", () => {
+    it("should return an unique conference", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .get(`/conferences/${conference.uuid}`);
+        res.should.have.status(200);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
+  
+
 });

@@ -16,4 +16,18 @@ conference.get("/", async (req, res) => {
     }
   });
 
+  conference.get(
+    "/:uuid",
+    regExpIntegrityCheck(uuidv4RegExp),
+    async (req, res) => {
+      const uuid = req.params.uuid;
+      try {
+        const conferences = await Conference.findOne({ where: { uuid } });
+        res.status(200).json(conferences);
+      } catch (err) {
+        res.status(400).json(err);
+      }
+    }
+  );
+
 module.exports = conference;
