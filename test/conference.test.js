@@ -93,5 +93,36 @@ describe("CONFERENCE", () => {
     });
   });
   
+  describe("put a conference", () => {
+    it("should put a conference", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .put(`/conferences/${conference.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
+  describe("delete a conference", () => {
+    it("should delete a single conference", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/conferences/${conference.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
 
 });
+
+
+

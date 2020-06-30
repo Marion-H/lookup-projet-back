@@ -48,4 +48,44 @@ conference.post("/", async (req, res) => {
   }
 });
 
+conference.put(
+    "/:uuid",
+    regExpIntegrityCheck(uuidv4RegExp),
+    async (req, res) => {
+      const uuid = req.params.uuid;
+      const { title, subject, date, picture} = req.body;
+      try {
+        await Conference.update(
+          {
+            title, subject, date, picture
+          },
+          { where: { uuid } }
+        );
+        res.status(204).end();
+      } catch (error) {
+        res.status(400).json(error);
+      }
+    }
+  );
+
+
+  conference.delete(
+    "/:uuid",
+    regExpIntegrityCheck(uuidv4RegExp),
+    async (req, res) => {
+      const { uuid } = req.params;
+      try {
+        const conference = await Conference.destroy({ where: { uuid } });
+  
+        res.status(204).json(conference);
+      } catch (err) {
+        res.status(404).json({
+          status: "error",
+          message: "carousel not found",
+        });
+      }
+    }
+  );
+
+
 module.exports = conference;
