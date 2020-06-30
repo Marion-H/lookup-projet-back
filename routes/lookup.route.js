@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const lookup = express.Router();
 
@@ -25,12 +26,34 @@ lookup.post("/", async (req, res) => {
   const { email, password } = req.body;
   try {
     const lookup = await Lookup.findOrCreate({
-      where: { email, password },
-      default: {},
+      where: { email },
+      defaults: { password },
     });
-    res.status(201).json(lookup);
+    res.status(204).end();
   } catch (error) {
-    res.status(422).json(error);
+    res.status(422).json(error.message);
+  }
+});
+
+// const secret = "zkP8a2Pbw3SNKzHE2dW9PfhkKYzcVt55S8WAB7ZC";
+
+lookup.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const lookup = await Lookup.findOne({ where: { email } });
+    if (lookup.validatePassword(password)) {
+      const token = jwt.sign(
+        {
+          id: lookup.dataValues.uuid,
+          email: lookup.dataValues.email,
+        },
+        process.env.secret,
+        { expiresIn: "1h" }
+      );
+      res.status(200).json({ token });
+    }
+  } catch (err) {
+    res.status(400).json(err);
   }
 });
 

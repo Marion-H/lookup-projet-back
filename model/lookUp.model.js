@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelizeInstance = require("../sequelize");
 const bcrypt = require("bcrypt");
+const lookup = require("../routes/lookup.route");
 
 const Lookup = sequelizeInstance.define(
   "Lookup",
@@ -49,15 +50,18 @@ const Lookup = sequelizeInstance.define(
     },
   },
   {
-    instanceMethods: {
-      generateHash: function (password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-      },
-      validPassword: function (password) {
-        return bcrypt.compareSync(password, this.password);
+    hooks: {
+      beforeCreate: (user) => {
+        if (user.password) {
+          user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+        }
       },
     },
   }
 );
+
+Lookup.prototype.validatePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 module.exports = Lookup;
