@@ -45,7 +45,7 @@ product.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   const { name, price, description, picture } = req.body;
   try {
-    const products = await Product.update(
+    await Product.update(
       {
         name,
         price,
@@ -54,7 +54,7 @@ product.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
       },
       { where: { uuid } }
     );
-    res.status(204).send(products);
+    res.status(204).end();
   } catch (err) {
     res.status(400).json(err);
   }
@@ -66,9 +66,9 @@ product.delete(
   async (req, res) => {
     const { uuid } = req.params;
     try {
-      const products = await Product.destroy({ where: { uuid } });
+      await Product.destroy({ where: { uuid } });
 
-      res.status(204).json(products);
+      res.status(204).end();
     } catch (err) {
       res.status(404).json({
         status: "error",

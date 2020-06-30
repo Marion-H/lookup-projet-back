@@ -24,7 +24,8 @@ let product;
 
 describe("PRODUCT", () => {
   before(async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force : true });
+    
 
     product = await Product.create({
       name: "test",
@@ -85,7 +86,7 @@ describe("PRODUCT", () => {
         const res = await chai.request(server).put(`/products/${product.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
-      } catch (error) {
+      } catch (err) {
         throw err;
       }
     });
