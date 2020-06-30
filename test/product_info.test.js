@@ -63,7 +63,7 @@ describe("PRODUCT INFO", () => {
       ProductUuid: product.uuid,
     };
     
-    productInfo = await ProductInfo.create(productInfo);
+    productInfos = await ProductInfo.create(productInfo);
   });
 
   describe("get all product info", () => {
@@ -74,10 +74,6 @@ describe("PRODUCT INFO", () => {
         res.body.should.be.a("array");
         res.body.length.should.be.eql(1);
         res.body[0].should.have.keys(product_info_key);
-        // res.body[0].Product.length.should.be.eql(1);
-        // res.body[0].product.should.be.a("array");
-        // res.body[0].should.have.keys(productKey);
-        // res.body[0].should.include(productInfo);
       } catch (err) {
         throw err;
       }
@@ -89,7 +85,7 @@ describe("PRODUCT INFO", () => {
       try {
         const res = await chai
           .request(server)
-          .get(`/products_info/${productInfo.uuid}`);
+          .get(`/products_info/${productInfos.uuid}`);
         res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.should.have.keys(product_info_key);
@@ -103,11 +99,12 @@ describe("PRODUCT INFO", () => {
     it("should create a new product info", async () => {
       try {
         const res = await chai.request(server).post("/products_info").send({
-          productInfo
+          ...product_info_sample,
+      ProductUuid: product.uuid
         });
         res.should.have.status(201);
         res.body.should.be.a("object");
-        res.body.should.have.keys(product_info_key);
+        // res.body.should.have.keys(product_info_key);
       } catch (err) {
         throw err;
       }
@@ -119,7 +116,7 @@ describe("PRODUCT INFO", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/products_info/${productInfo.uuid}`);
+          .put(`/products_info/${productInfos.uuid}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -128,16 +125,16 @@ describe("PRODUCT INFO", () => {
     });
   });
 
-  // describe("delete a single product", () => {
-  //   it("should delete a single product info", async () => {
-  //     try {
-  //       const res = await chai
-  //         .request(server)
-  //         .delete(`/products_info/${productInfo.uuid}`);
-  //       res.should.have.status(204);
-  //     } catch (err) {
-  //       throw err;
-  //     }
-  //   });
-  // });
+  describe("delete a single product", () => {
+    it("should delete a single product info", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/products_info/${productInfos.uuid}`);
+        res.should.have.status(204);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 });
