@@ -2,7 +2,7 @@ GET http://localhost:8000/products
 
 ###
 
-GET http://localhost:8000/products/1b1e794f-0293-4603-84b7-0fc0477c89d2
+GET http://localhost:8000/products/30273232-15d3-488c-8446-d1798cb68faa
 
 ###
 
@@ -15,3 +15,19 @@ Content-Type: application/json
     "description": "ceci est un support de mamie",
     "picture": "iamzepicture.jpg"
 }
+
+
+###
+PUT http://localhost:8000/products/30273232-15d3-488c-8446-d1798cb68faa
+Content-Type: application/json
+
+{
+    "name": "support man 3000",
+    "price": 22200002.5,
+    "description": "ceci est un support de mamie",
+    "picture": "iamzepicture.jpg"
+}
+
+
+###
+DELETE http://localhost:8000/products/30273232-15d3-488c-8446-d1798cb68faa
