@@ -1,0 +1,21 @@
+GET http://localhost:8000/client
+
+###
+
+GET http://localhost:8000/client/uuid
+
+###
+
+POST http://localhost:8000/client
+Content-Type: application/json
+
+{
+    "companyName": "toto les orties",
+    "streetNumber": 12,
+    "streetName": "rue des sabots sans cheveaux",
+    "city": "Tarnus",
+    "postalCode": 40200,
+    "email": "client@use.com",
+    "phone": 68866115522,
+    "siret": "14144114411441"
+}
