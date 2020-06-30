@@ -10,23 +10,23 @@ const Lookup = sequelizeInstance.define("Lookup", {
   },
   companyName: {
     type: Sequelize.STRING(50),
-    allowNull: false,
+    allowNull: true,
   },
   streetName: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   streetNumber: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   postalCode: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   city: {
     type: Sequelize.STRING(50),
-    allowNull: false,
+    allowNull: true,
   },
   email: {
     type: Sequelize.STRING(100),
@@ -34,11 +34,11 @@ const Lookup = sequelizeInstance.define("Lookup", {
   },
   phone: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   siret: {
     type: Sequelize.STRING(50),
-    allowNull: false,
+    allowNull: true,
   },
   password: {
     type: Sequelize.STRING,

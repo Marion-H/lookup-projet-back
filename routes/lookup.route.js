@@ -21,35 +21,45 @@ lookup.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
 });
 
 lookup.post("/", async (req, res) => {
-  const {
-    companyName,
-    streetNumber,
-    streetName,
-    postalCode,
-    city,
-    email,
-    phone,
-    siret,
-    password,
-  } = req.body;
+  const { email, password } = req.body;
   try {
-    const lookup = await Lookup.create({
-      companyName,
-      streetNumber,
-      streetName,
-      postalCode,
-      city,
-      email,
-      phone,
-      siret,
-      password,
+    const lookup = await Lookup.findOrCreate({
+      where: { email, password },
+      default: {},
     });
     res.status(201).json(lookup);
   } catch (error) {
-    res.status(422).json({
-      status: "error",
-      message: error,
-    });
+    res.status(422).json(error);
+  }
+});
+
+lookup.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+  const { uuid } = req.params;
+  const {
+    companyName,
+    streetName,
+    streetNumber,
+    postalCode,
+    city,
+    phone,
+    siret,
+  } = req.body;
+  try {
+    const lookup = await Lookup.update(
+      {
+        companyName,
+        streetName,
+        streetNumber,
+        postalCode,
+        city,
+        phone,
+        siret,
+      },
+      { where: { uuid } }
+    );
+    res.status(204).json(lookup);
+  } catch (error) {
+    res.status(400).json(error);
   }
 });
 
