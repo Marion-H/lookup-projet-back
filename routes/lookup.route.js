@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const authRole = require("../middlewares/authRole");
 
 const lookup = express.Router();
 
@@ -30,7 +29,7 @@ lookup.post("/", async (req, res) => {
       where: { email },
       defaults: { password },
     });
-    res.status(204).end();
+    res.status(201).end();
   } catch (error) {
     res.status(422).json(error.message);
   }
@@ -49,7 +48,7 @@ lookup.post("/login", async (req, res) => {
         process.env.secret,
         { expiresIn: "1h" }
       );
-      res.status(200).json({ token });
+      res.status(201).json({ token });
     }
   } catch (err) {
     res.status(400).json(err);
@@ -83,7 +82,7 @@ lookup.put(
         },
         { where: { uuid } }
       );
-      res.status(204).json(lookup);
+      res.status(201).json(lookup);
     } catch (error) {
       res.status(400).json(error);
     }
