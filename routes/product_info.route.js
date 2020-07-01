@@ -23,7 +23,7 @@ product_info.get(
   async (req, res) => {
     const uuid = req.params.uuid;
     try {
-      const products = await ProductInfo.findOne({include : {model : Product}},{ where: { uuid } });
+      const products = await ProductInfo.findOne({include : {model : Product}, where: { uuid } });
       res.status(200).json(products);
     } catch (err) {
       res.status(400).json(err);
