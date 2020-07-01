@@ -28,4 +28,23 @@ press.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
     });
   }
 });
+
+press.post("/", async (req, res) => {
+    console.log(req.body);
+    const { title, description, picture } = req.body;
+    try {
+      const pressR = await Press.create({
+        title,
+        description,
+        picture,
+      });
+      res.status(201).json(pressR);
+    } catch (err) {
+      res.status(422).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  });
+
 module.exports = press;

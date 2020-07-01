@@ -60,5 +60,35 @@ describe("PRESS", () => {
     });
   });
 
+  describe("post a press relation", () => {
+    it("should post new press relation", async () => {
+      try {
+        const res = await chai.request(server).post("/press").send({
+          title: "test",
+          description: "Loreum ipsum",
+          picture: "https://www.test.fr/test.jpg",
+        });
+        res.should.have.status(201);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(pressKey);
+      } catch (err) {
+        throw err;
+      }
+    });
+    it("should fail to create", async () => {
+      try {
+        const res = await chai.request(server).post("/press").send({
+          title: "test",
+        });
+        console.log(res.body);
+        res.should.have.status(422);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(["status", "message"]);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
 
 });
