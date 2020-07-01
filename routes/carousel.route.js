@@ -48,7 +48,7 @@ carousel.post("/",auth , async (req, res) => {
   }
 });
 
-carousel.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+carousel.put("/:uuid", auth, regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const { uuid } = req.params;
   const { title, description, link, picture } = req.body;
 
@@ -68,7 +68,7 @@ carousel.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
 });
 
 carousel.delete(
-  "/:uuid",
+  "/:uuid",auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
