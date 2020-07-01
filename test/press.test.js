@@ -90,5 +90,32 @@ describe("PRESS", () => {
     });
   });
 
+  describe("put a press relation", () => {
+    it("should put a press relation", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .put(`/press/${press.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+  
+  describe("delete a press relation", () => {
+    it("should delete a press relation", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/press/${press.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 
 });

@@ -47,4 +47,41 @@ press.post("/", async (req, res) => {
     }
   });
 
+  press.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+    const { uuid } = req.params;
+    const { title, description, picture } = req.body;
+  
+    try {
+      const pressR = await Press.update(
+        { title, description, picture },
+        { where: { uuid } }
+      );
+  
+      res.status(204).json(pressR);
+    } catch (err) {
+      res.status(400).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  });
+
+  press.delete(
+    "/:uuid",
+    regExpIntegrityCheck(uuidv4RegExp),
+    async (req, res) => {
+      const { uuid } = req.params;
+      try {
+        const pressR = await Press.destroy({ where: { uuid } });
+  
+        res.status(204).json(pressR);
+      } catch (err) {
+        res.status(404).json({
+          status: "error",
+          message: "press relation not found",
+        });
+      }
+    }
+  );
+
 module.exports = press;
