@@ -7,7 +7,7 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const Client = require("../model/client.model");
 
-client.get("/", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+client.get("/", async (req, res) => {
   try {
     const client = await Client.findAll();
     res.status(200).json(client);
@@ -50,7 +50,10 @@ client.post("/", async (req, res) => {
     });
     res.status(201).json(client);
   } catch (error) {
-    res.status(422).json(error.message);
+    res.status(422).json({
+      status: "error",
+      message: "invalid request",
+    });
   }
 });
 

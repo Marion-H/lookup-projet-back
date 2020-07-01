@@ -33,7 +33,7 @@ const Client = sequelizeInstance.define("Client", {
     allowNull: false,
   },
   phone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   siret: {
