@@ -9,6 +9,7 @@ const carousel = require("./routes/carousel.route");
 const product = require("./routes/product.route");
 const product_info = require("./routes/product_info.route");
 const lookup = require("./routes/lookup.route");
+const press = require("./routes/press.route");
 const conference = require("./routes/conference.route")
 
 const app = express();
@@ -22,6 +23,7 @@ app.use("/carousels", carousel);
 app.use("/products", product);
 app.use("/products_info", product_info);
 app.use("/admin", lookup);
+app.use("/press", press);
 app.use("/conferences", conference)
 
 app.get("/", (req, res) => {
