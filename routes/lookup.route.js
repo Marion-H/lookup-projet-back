@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+
 const jwt = require("jsonwebtoken");
 
 const lookup = express.Router();
@@ -54,6 +54,7 @@ lookup.post("/login", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
 
 lookup.put(
   "/login/:uuid",

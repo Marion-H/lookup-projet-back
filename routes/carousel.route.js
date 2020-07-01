@@ -7,6 +7,8 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const Carousel = require("../model/carousel.model");
 
+const auth = require('../middlewares/auth')
+
 carousel.get("/", async (req, res) => {
   const carousels = await Carousel.findAll();
   try {
@@ -29,9 +31,7 @@ carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-carousel.post("/", async (req, res) => {
-  console.log(req.body);
-  const { title, description, link, picture } = req.body;
+carousel.post("/",auth , async (req, res) => {
   try {
     const carousel = await Carousel.create({
       title,
