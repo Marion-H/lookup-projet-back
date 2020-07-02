@@ -85,7 +85,7 @@ conference.put(
       } catch (err) {
         res.status(404).json({
           status: "error",
-          message: "carousel not found",
+          message: "conference not found",
         });
       }
     }

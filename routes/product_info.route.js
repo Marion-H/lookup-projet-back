@@ -104,7 +104,7 @@ product_info.delete(
     } catch (error) {
       res.status(404).json({
         status: "error",
-        message: "product not found",
+        message: "product information not found",
       });
     }
   }
