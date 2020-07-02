@@ -5,10 +5,11 @@ GET http://localhost:8000/carousels/
 
 POST http://localhost:8000/carousels 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlZjUxMjc5LWQ4MzktNDIwOS1hZDFhLTFkMTNjNTZiMmMxNSIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTM2MDEzMjMsImV4cCI6MTU5MzYwNDkyM30.tWOFDSZw_cknYtcWQA1pCtbdCBMJsZ1l0G2Jlod5bBg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU4NjQ3NGFjLTM5MDItNDRlYS05YjQyLTdkMTllNDRlYWViZiIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTM2NzcxMDYsImV4cCI6MTU5MzY4MDcwNn0.xxz9C5g-gMnHwXRHJSzl8TQggSURoDlZ6UiE8csEEq0
+
 
 {
-    "title": "Hello3",
+    "title": "Yepa",
     "description": "je suis une image",
     "link": "http://postme.jpg",
     "picture": "postpic.jpg"
