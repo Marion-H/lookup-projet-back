@@ -1,12 +1,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Partenaire = require("../model/partenaire.model");
+const Lookup = require("../model/lookUp.model");
 
 let should = chai.should();
 
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
@@ -19,9 +21,26 @@ const partenaireKey = [
   "updatedAt",
 ];
 
+let partenaire
+let token
+
 describe("PARTENAIRE", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    const admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
+
 
     partenaire = await Partenaire.create({
       title: "test",
@@ -61,7 +80,7 @@ describe("PARTENAIRE", () => {
   describe("post a partenaire", () => {
     it("should post new partenaire", async () => {
       try {
-        const res = await chai.request(server).post("/partenaires").send({
+        const res = await chai.request(server).post("/partenaires").set("Authorization", `Bearer ${token}`).send({
           title: "test",
           description: "Loreum ipsum",
           logo: "https://www.test.fr/test.jpg",
@@ -75,7 +94,7 @@ describe("PARTENAIRE", () => {
     });
     it("should fail to create", async () => {
       try {
-        const res = await chai.request(server).post("/partenaires").send({
+        const res = await chai.request(server).post("/partenaires").set("Authorization", `Bearer ${token}`).send({
           title: "test",
         });
         console.log(res.body);
@@ -93,7 +112,7 @@ describe("PARTENAIRE", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/partenaires/${partenaire.uuid}`);
+          .put(`/partenaires/${partenaire.uuid}`).set("Authorization", `Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -101,5 +120,22 @@ describe("PARTENAIRE", () => {
       }
     });
   });
+
+
+  describe("delete a partenaire", () => {
+    it("should delete a single partenaire", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/partenaires/${partenaire.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
 
 });

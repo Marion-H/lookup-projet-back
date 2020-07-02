@@ -7,6 +7,8 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const Partenaire = require("../model/partenaire.model");
 
+const auth = require("../middlewares/auth");
+
 partenaire.get("/", async (req, res) => {
   const partenaires = await Partenaire.findAll();
   try {
@@ -33,8 +35,7 @@ partenaire.get(
   }
 );
 
-partenaire.post("/", async (req, res) => {
-  console.log(req.body);
+partenaire.post("/", auth, async (req, res) => {
   const { title, description, logo } = req.body;
   try {
     const partenaire = await Partenaire.create({
@@ -53,6 +54,7 @@ partenaire.post("/", async (req, res) => {
 
 partenaire.put(
   "/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
@@ -67,6 +69,25 @@ partenaire.put(
       res.status(400).json({
         status: "error",
         message: "invalid request",
+      });
+    }
+  }
+);
+
+partenaire.delete(
+  "/:uuid",
+  auth,
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    try {
+      const partenaire = await Partenaire.destroy({ where: { uuid } });
+
+      res.status(204).json(partenaire);
+    } catch (err) {
+      res.status(404).json({
+        status: "error",
+        message: "partenaire not found",
       });
     }
   }
