@@ -29,4 +29,21 @@ service.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
+service.post("/", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+  const { title, desciption, logo } = req.body;
+  try {
+    const services = await Service.create({
+      title,
+      desciption,
+      logo,
+    });
+    res.status(201).json(services);
+  } catch (err) {
+    res.status(422).json({
+      status: "error",
+      message: "invalid request",
+    });
+  }
+});
+
 module.exports = service;
