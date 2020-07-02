@@ -128,4 +128,19 @@ describe("SERVICE", () => {
       }
     });
   });
+
+  describe("delete a service", () => {
+    it("should delete a single service", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/services/${service.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 });

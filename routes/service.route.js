@@ -72,4 +72,23 @@ service.put(
   }
 );
 
+service.delete(
+  "/:uuid",
+  auth,
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    try {
+      const service = await Service.destroy({ where: { uuid } });
+
+      res.status(204).json(service);
+    } catch (err) {
+      res.status(404).json({
+        status: "error",
+        message: "service not found",
+      });
+    }
+  }
+);
+
 module.exports = service;
