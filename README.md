@@ -9,7 +9,7 @@
 
 - git clone
 - npm install
-- npm run dev : Start local development server using nodemon
+- npm run dev : Start local development server using **nodemon**
 - create an .env file at the root of the folder to be able to connect to your database
   - exemple file .env :
     > DB_HOST=localhost
@@ -25,17 +25,17 @@
 ## Execution and writing of tests
 
 - npm test : Start test server using mocha
-- Using *Chai* and *Chai-http* with method *`should`*
+- Using **Chai** and **Chai-http** with method *`should`*
 
 ## Curious behavior
 
-- importing a route in a model will *crash* or *not validate* your tests
+- importing a route in a model will ***crash*** or ***not validate*** your tests
 
 ## Autors
 
-[Marc](https://github.com/Neo-Ryo)
-[Marion](https://github.com/Marion-H)
-[Adèle](https://github.com/Adelebp)
-[Jp](https://github.com/jpgrindcore007)
-[Tommy](https://github.com/Tommychinn)
+##### [Marc](https://github.com/Neo-Ryo)
+##### [Marion](https://github.com/Marion-H)
+##### [Adèle](https://github.com/Adelebp)
+##### [Jp](https://github.com/jpgrindcore007)
+##### [Tommy](https://github.com/Tommychinn)
 
