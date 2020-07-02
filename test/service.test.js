@@ -1,12 +1,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Service = require("../model/service.model");
+const Lookup = require("../model/lookUp.model");
 
 let should = chai.should();
 
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken")
 
 chai.use(chaiHttp);
 
@@ -21,9 +23,26 @@ const serviceKeys = [
   "updatedAt",
 ];
 
+let token
+
 describe("SERVICE", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
+
+
     service = await Service.create({
       title: "test",
       description: "blablablbla",
@@ -62,6 +81,7 @@ describe("SERVICE", () => {
         const res = await chai
           .request(server)
           .post(`/services`)
+          .set("Authorization", `Bearer ${token}`)
           .send({
             title: "test",
             description: "blablablbla",
@@ -80,7 +100,7 @@ describe("SERVICE", () => {
         const res = await chai
           .request(server)
           .post("/services")
-          // .set("Authorization", `Bearer ${token}`)
+          .set("Authorization", `Bearer ${token}`)
           .send({
             title: "test",
           });
@@ -88,6 +108,21 @@ describe("SERVICE", () => {
         res.should.have.status(422);
         res.body.should.be.a("object");
         res.body.should.have.keys(["status", "message"]);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
+  describe("put a service", () => {
+    it("should put a service", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .put(`/services/${service.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
       } catch (err) {
         throw err;
       }

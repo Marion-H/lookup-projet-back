@@ -6,6 +6,7 @@ const Service = require("../model/service.model");
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
+const auth = require("../middlewares/auth");
 
 service.get("/", async (req, res) => {
   try {
@@ -29,7 +30,7 @@ service.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-service.post("/", async (req, res) => {
+service.post("/",auth, async (req, res) => {
   const { title, description, logo } = req.body;
   try {
     const services = await Service.create({
@@ -45,5 +46,30 @@ service.post("/", async (req, res) => {
     });
   }
 });
+
+
+service.put(
+  "/:uuid",
+  auth,
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    const { title, description, logo } = req.body;
+
+    try {
+      const service = await Service.update(
+        { title, description, logo },
+        { where: { uuid } }
+      );
+
+      res.status(204).json(service);
+    } catch (err) {
+      res.status(400).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  }
+);
 
 module.exports = service;
