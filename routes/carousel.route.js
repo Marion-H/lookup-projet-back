@@ -7,6 +7,8 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 
 const Carousel = require("../model/carousel.model");
 
+const auth = require("../middlewares/auth");
+
 carousel.get("/", async (req, res) => {
   const carousels = await Carousel.findAll();
   try {
@@ -29,8 +31,7 @@ carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-carousel.post("/", async (req, res) => {
-  console.log(req.body);
+carousel.post("/", auth, async (req, res) => {
   const { title, description, link, picture } = req.body;
   try {
     const carousel = await Carousel.create({
@@ -48,27 +49,33 @@ carousel.post("/", async (req, res) => {
   }
 });
 
-carousel.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
-  const { uuid } = req.params;
-  const { title, description, link, picture } = req.body;
+carousel.put(
+  "/:uuid",
+  auth,
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    const { title, description, link, picture } = req.body;
 
-  try {
-    const carousel = await Carousel.update(
-      { title, description, link, picture },
-      { where: { uuid } }
-    );
+    try {
+      const carousel = await Carousel.update(
+        { title, description, link, picture },
+        { where: { uuid } }
+      );
 
-    res.status(204).json(carousel);
-  } catch (err) {
-    res.status(400).json({
-      status: "error",
-      message: "invalid request",
-    });
+      res.status(204).json(carousel);
+    } catch (err) {
+      res.status(400).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
   }
-});
+);
 
 carousel.delete(
   "/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;

@@ -103,31 +103,31 @@ describe("Client", () => {
     });
   });
 
-  //   describe("put a carousel", () => {
-  //     it("should put a carousel", async () => {
-  //       try {
-  //         const res = await chai
-  //           .request(server)
-  //           .put(`/carousels/${carousel.uuid}`);
-  //         res.should.have.status(204);
-  //         res.body.should.be.a("object");
-  //       } catch (err) {
-  //         throw err;
-  //       }
-  //     });
-  //   });
+    describe("put a client", () => {
+      it("should put a client", async () => {
+        try {
+          const res = await chai
+            .request(server)
+            .put(`/clients/${client.uuid}`);
+          res.should.have.status(204);
+          res.body.should.be.a("object");
+        } catch (err) {
+          throw err;
+        }
+      });
+    });
 
-  //   describe("delete a carousel", () => {
-  //     it("should delete a single carousel", async () => {
-  //       try {
-  //         const res = await chai
-  //           .request(server)
-  //           .delete(`/carousels/${carousel.uuid}`);
-  //         res.should.have.status(204);
-  //         res.body.should.be.a("object");
-  //       } catch (err) {
-  //         throw err;
-  //       }
-  //     });
-  //   });
+    describe("delete a client", () => {
+      it("should delete a single client", async () => {
+        try {
+          const res = await chai
+            .request(server)
+            .delete(`/clients/${client.uuid}`);
+          res.should.have.status(204);
+          res.body.should.be.a("object");
+        } catch (err) {
+          throw err;
+        }
+      });
+    });
 });

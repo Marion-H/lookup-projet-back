@@ -1,12 +1,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Carousel = require("../model/carousel.model");
+const Lookup = require("../model/lookUp.model");
 
 let should = chai.should();
 
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
@@ -21,11 +23,24 @@ const carouselKey = [
 ];
 
 let carousel;
+let token;
 
 describe("CAROUSSEL", () => {
   before(async () => {
-    await sequelize.sync({force : true });
+    await sequelize.sync({ force: true });
 
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
 
     carousel = await Carousel.create({
       title: "test",
@@ -66,12 +81,16 @@ describe("CAROUSSEL", () => {
   describe("post a carousel", () => {
     it("should post new carousel", async () => {
       try {
-        const res = await chai.request(server).post("/carousels").send({
-          title: "test",
-          description: "Loreum ipsum",
-          link: "https://www.test.fr",
-          picture: "https://www.test.fr/test.jpg",
-        });
+        const res = await chai
+          .request(server)
+          .post("/carousels")
+          .set("Authorization", `Bearer ${token}`)
+          .send({
+            title: "test",
+            description: "Loreum ipsum",
+            link: "https://www.test.fr",
+            picture: "https://www.test.fr/test.jpg",
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         res.body.should.have.keys(carouselKey);
@@ -81,9 +100,13 @@ describe("CAROUSSEL", () => {
     });
     it("should fail to create", async () => {
       try {
-        const res = await chai.request(server).post("/carousels").send({
-          title: "test",
-        });
+        const res = await chai
+          .request(server)
+          .post("/carousels")
+          .set("Authorization", `Bearer ${token}`)
+          .send({
+            title: "test",
+          });
         console.log(res.body);
         res.should.have.status(422);
         res.body.should.be.a("object");
@@ -99,7 +122,8 @@ describe("CAROUSSEL", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/carousels/${carousel.uuid}`);
+          .put(`/carousels/${carousel.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -113,7 +137,8 @@ describe("CAROUSSEL", () => {
       try {
         const res = await chai
           .request(server)
-          .delete(`/carousels/${carousel.uuid}`);
+          .delete(`/carousels/${carousel.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
