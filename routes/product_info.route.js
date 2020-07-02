@@ -4,12 +4,13 @@ const product_info = express.Router();
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
+const auth = require("../middlewares/auth");
 
 const ProductInfo = require("../model/product_info.model");
-const Product = require("../model/product.model")
+const Product = require("../model/product.model");
 
 product_info.get("/", async (req, res) => {
-  const products = await ProductInfo.findAll({include : {model : Product}});
+  const products = await ProductInfo.findAll({ include: { model: Product } });
   try {
     res.status(200).json(products);
   } catch (err) {
@@ -23,7 +24,10 @@ product_info.get(
   async (req, res) => {
     const uuid = req.params.uuid;
     try {
-      const products = await ProductInfo.findOne({include : {model : Product}},{ where: { uuid } });
+      const products = await ProductInfo.findOne({
+        include: { model: Product },
+        where: { uuid },
+      });
       res.status(200).json(products);
     } catch (err) {
       res.status(400).json(err);
@@ -31,8 +35,15 @@ product_info.get(
   }
 );
 
-product_info.post("/", async (req, res) => {
-  const { title, description, picture, picture2, picture3 ,ProductUuid} = req.body;
+product_info.post("/", auth, async (req, res) => {
+  const {
+    title,
+    description,
+    picture,
+    picture2,
+    picture3,
+    ProductUuid,
+  } = req.body;
   try {
     const products = await ProductInfo.create({
       title,
@@ -40,7 +51,7 @@ product_info.post("/", async (req, res) => {
       picture,
       picture2,
       picture3,
-      ProductUuid
+      ProductUuid,
     });
     res.status(201).json(products);
   } catch (error) {
@@ -50,10 +61,18 @@ product_info.post("/", async (req, res) => {
 
 product_info.put(
   "/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const uuid = req.params.uuid;
-    const { title, description, picture, picture2, picture3 ,ProductUuid} = req.body;
+    const {
+      title,
+      description,
+      picture,
+      picture2,
+      picture3,
+      ProductUuid,
+    } = req.body;
     try {
       await ProductInfo.update(
         {
@@ -62,7 +81,7 @@ product_info.put(
           picture,
           picture2,
           picture3,
-          ProductUuid
+          ProductUuid,
         },
         { where: { uuid } }
       );
@@ -75,6 +94,7 @@ product_info.put(
 
 product_info.delete(
   "/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const uuid = req.params.uuid;
@@ -84,7 +104,7 @@ product_info.delete(
     } catch (error) {
       res.status(404).json({
         status: "error",
-        message: "product not found",
+        message: "product information not found",
       });
     }
   }

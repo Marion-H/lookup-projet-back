@@ -1,7 +1,5 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const Carousel = require("../model/carousel.model");
-const Lookup = require("../model/lookUp.model");
 
 let should = chai.should();
 
@@ -12,20 +10,24 @@ const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
-const carouselKey = [
+const Conference = require("../model/conference.model");
+const Lookup = require("../model/lookUp.model");
+
+const conferenceKey = [
   "uuid",
   "title",
-  "description",
-  "link",
+  "subject",
+  "date",
   "picture",
   "createdAt",
   "updatedAt",
 ];
 
-let carousel;
+let conference;
+
 let token;
 
-describe("CAROUSSEL", () => {
+describe("CONFERENCE", () => {
   before(async () => {
     await sequelize.sync({ force: true });
 
@@ -42,21 +44,21 @@ describe("CAROUSSEL", () => {
       { expiresIn: "1h" }
     );
 
-    carousel = await Carousel.create({
+    conference = await Conference.create({
       title: "test",
-      description: "Loreum ipsum",
-      link: "https://www.test.fr",
+      subject: "Loreum ipsum",
+      date: "1990-05-28",
       picture: "https://www.test.fr/test.jpg",
     });
   });
 
-  describe("get all carousel", () => {
-    it("should return an array of carousel", async () => {
+  describe("get all conference", () => {
+    it("should return an array of conference", async () => {
       try {
-        const res = await chai.request(server).get("/carousels");
+        const res = await chai.request(server).get("/conferences");
         res.should.have.status(200);
         res.body.should.be.a("array");
-        res.body[0].should.have.keys(carouselKey);
+        res.body[0].should.have.keys(conferenceKey);
         res.body.length.should.be.eql(1);
       } catch (err) {
         throw err;
@@ -64,12 +66,12 @@ describe("CAROUSSEL", () => {
     });
   });
 
-  describe("get a carousel", () => {
-    it("should return an unique carousel", async () => {
+  describe("get a conference", () => {
+    it("should return an unique conference", async () => {
       try {
         const res = await chai
           .request(server)
-          .get(`/carousels/${carousel.uuid}`);
+          .get(`/conferences/${conference.uuid}`);
         res.should.have.status(200);
         res.body.should.be.a("object");
       } catch (err) {
@@ -78,22 +80,22 @@ describe("CAROUSSEL", () => {
     });
   });
 
-  describe("post a carousel", () => {
-    it("should post new carousel", async () => {
+  describe("post a conference", () => {
+    it("should post new conference", async () => {
       try {
         const res = await chai
           .request(server)
-          .post("/carousels")
-          .set("Authorization", `Bearer ${token}`)
+          .post("/conferences")
+          .set("Authorization", ` Bearer ${token}`)
           .send({
             title: "test",
-            description: "Loreum ipsum",
-            link: "https://www.test.fr",
+            subject: "Loreum ipsum",
+            date: "1990-05-28",
             picture: "https://www.test.fr/test.jpg",
           });
         res.should.have.status(201);
         res.body.should.be.a("object");
-        res.body.should.have.keys(carouselKey);
+        res.body.should.have.keys(conferenceKey);
       } catch (err) {
         throw err;
       }
@@ -102,12 +104,11 @@ describe("CAROUSSEL", () => {
       try {
         const res = await chai
           .request(server)
-          .post("/carousels")
-          .set("Authorization", `Bearer ${token}`)
+          .post("/conferences")
+          .set("Authorization", ` Bearer ${token}`)
           .send({
-            title: "test",
+            titl: "test",
           });
-        console.log(res.body);
         res.should.have.status(422);
         res.body.should.be.a("object");
         res.body.should.have.keys(["status", "message"]);
@@ -117,13 +118,13 @@ describe("CAROUSSEL", () => {
     });
   });
 
-  describe("put a carousel", () => {
-    it("should put a carousel", async () => {
+  describe("put a conference", () => {
+    it("should put a conference", async () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/carousels/${carousel.uuid}`)
-          .set("Authorization", `Bearer ${token}`);
+          .put(`/conferences/${conference.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -132,13 +133,13 @@ describe("CAROUSSEL", () => {
     });
   });
 
-  describe("delete a carousel", () => {
-    it("should delete a single carousel", async () => {
+  describe("delete a conference", () => {
+    it("should delete a single conference", async () => {
       try {
         const res = await chai
           .request(server)
-          .delete(`/carousels/${carousel.uuid}`)
-          .set("Authorization", `Bearer ${token}`);
+          .delete(`/conferences/${conference.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {

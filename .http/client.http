@@ -1,0 +1,21 @@
+GET http://localhost:8000/clients
+
+###
+
+GET http://localhost:8000/clients/7417a3d5-e001-41ae-954d-dce5217d7851
+
+###
+
+POST http://localhost:8000/clients
+Content-Type: application/json
+
+{
+    "companyName": "toto les orties",
+    "streetNumber": 12,
+    "streetName": "rue des sabots sans cheveaux",
+    "city": "Tarnus",
+    "postalCode": 40200,
+    "email": "client@use.com",
+    "phone": "6886611552",
+    "siret": "14144114411441"
+}

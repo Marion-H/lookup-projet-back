@@ -1,4 +1,4 @@
-GET http://localhost:8000/admin/53afb808-1aa6-49e2-8cef-264d9118467e
+GET http://localhost:8000/admin/3884a2eb-7a7f-46c9-a17d-0231549461b2 
 
 
 ###
@@ -8,14 +8,26 @@ Content-Type: application/json
 X-Http-Method-Override: MERGE
 
 {
-    "email": "anthonin@lookup.fr",
+    "email": "anthonin64@lookup.fr",
     "password": "toto"
     
 }
 
 ###
 
-PUT http://localhost:8000/admin/53afb808-1aa6-49e2-8cef-264d9118467e
+POST http://localhost:8000/admin/login
+Content-Type: application/json
+
+{
+    "email": "anthonin64@lookup.fr",
+    "password": "toto"
+}
+
+
+
+####
+
+PUT http://localhost:8000/admin/login/3884a2eb-7a7f-46c9-a17d-0231549461b2
 Content-Type: application/json
 
 {

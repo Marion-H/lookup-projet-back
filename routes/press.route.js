@@ -1,28 +1,27 @@
 const express = require("express");
 
-const carousel = express.Router();
+const press = express.Router();
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
-
-const Carousel = require("../model/carousel.model");
-
 const auth = require("../middlewares/auth");
 
-carousel.get("/", async (req, res) => {
-  const carousels = await Carousel.findAll();
+const Press = require("../model/press.model");
+
+press.get("/", async (req, res) => {
+  const pressR = await Press.findAll();
   try {
-    res.status(200).json(carousels);
+    res.status(200).json(pressR);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+press.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const carousel = await Carousel.findByPk(uuid);
-    res.status(200).json(carousel);
+    const pressR = await Press.findByPk(uuid);
+    res.status(200).json(pressR);
   } catch (err) {
     res.status(422).json({
       status: "error",
@@ -31,16 +30,15 @@ carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-carousel.post("/", auth, async (req, res) => {
-  const { title, description, link, picture } = req.body;
+press.post("/", auth, async (req, res) => {
+  const { title, description, picture } = req.body;
   try {
-    const carousel = await Carousel.create({
+    const pressR = await Press.create({
       title,
       description,
-      link,
       picture,
     });
-    res.status(201).json(carousel);
+    res.status(201).json(pressR);
   } catch (err) {
     res.status(422).json({
       status: "error",
@@ -49,21 +47,21 @@ carousel.post("/", auth, async (req, res) => {
   }
 });
 
-carousel.put(
+press.put(
   "/:uuid",
   auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
-    const { title, description, link, picture } = req.body;
+    const { title, description, picture } = req.body;
 
     try {
-      const carousel = await Carousel.update(
-        { title, description, link, picture },
+      const pressR = await Press.update(
+        { title, description, picture },
         { where: { uuid } }
       );
 
-      res.status(204).json(carousel);
+      res.status(204).json(pressR);
     } catch (err) {
       res.status(400).json({
         status: "error",
@@ -73,23 +71,23 @@ carousel.put(
   }
 );
 
-carousel.delete(
+press.delete(
   "/:uuid",
   auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
     try {
-      const carousel = await Carousel.destroy({ where: { uuid } });
+      const pressR = await Press.destroy({ where: { uuid } });
 
-      res.status(204).json(carousel);
+      res.status(204).json(pressR);
     } catch (err) {
       res.status(404).json({
         status: "error",
-        message: "carousel not found",
+        message: "press relation not found",
       });
     }
   }
 );
 
-module.exports = carousel;
+module.exports = press;
