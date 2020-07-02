@@ -19,7 +19,7 @@ client.get("/", async (req, res) => {
 client.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const { uuid } = req.params;
   try {
-    const client = await Client.findOne({ where: { uuid } });
+    const client = await Client.findByPk(uuid);
     res.status(200).json(client);
   } catch (error) {
     res.status(400).json(error.message);
