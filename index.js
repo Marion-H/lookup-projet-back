@@ -6,6 +6,7 @@ const sequelize = require("./sequelize");
 const carousel = require("./routes/carousel.route");
 const product = require("./routes/product.route");
 const lookup = require("./routes/lookup.route");
+const service = require("/routes/service.route");
 
 const app = express();
 
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 8000;
 app.use(helmet());
 app.use(express.json());
 
+app.use("/services", service);
 app.use("/carousels", carousel);
 app.use("/products", product);
 app.use("/admin", lookup);
@@ -24,7 +26,7 @@ app.get("/", (req, res) => {
 
 async function main() {
   try {
-    await sequelize.sync({force:true});
+    await sequelize.sync({ force: true });
     await sequelize.authenticate();
     console.log("Database succesfully joined");
     app.listen(PORT, (err) => {

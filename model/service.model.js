@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelizeInstance = require("../sequelize");
 
-const Carousel = sequelizeInstance.define("Carousel", {
+const Service = sequelizeInstance.define("Service", {
   uuid: {
     type: Sequelize.UUID,
     allowNull: false,
@@ -9,21 +9,17 @@ const Carousel = sequelizeInstance.define("Carousel", {
     defaultValue: Sequelize.UUIDV4,
   },
   title: {
-    type: Sequelize.STRING(50),
-    allowNull: true,
+    type: Sequelize.STRING(100),
+    allowNull: false,
   },
   description: {
-    type: Sequelize.STRING(50),
+    type: Sequelize.STRING(1000),
     allowNull: false,
   },
-  link: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  picture: {
+  logo: {
     type: Sequelize.STRING(250),
     allowNull: false,
   },
 });
 
-module.exports = Carousel;
+module.exports = Service;
