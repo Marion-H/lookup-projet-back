@@ -12,6 +12,7 @@ const lookup = require("./routes/lookup.route");
 const client = require("./routes/client.route");
 const conference = require("./routes/conference.route");
 const press = require("./routes/press.route");
+const partenaire = require("./routes/partenaire.route")
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use("/admin", lookup);
 app.use("/clients", client);
 app.use("/conferences", conference);
 app.use("/press", press);
+app.use("/partenaires", partenaire)
 
 app.get("/", (req, res) => {
   res.status(200).send("Here is our API!");
