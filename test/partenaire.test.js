@@ -45,4 +45,18 @@ const partenaireKey = [
         });
       });
 
+      describe("get a partenaire", () => {
+        it("should return an unique partenaire", async () => {
+          try {
+            const res = await chai
+              .request(server)
+              .get(`/partenaires/${partenaire.uuid}`);
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+          } catch (err) {
+            throw err;
+          }
+        });
+      });
+
 })

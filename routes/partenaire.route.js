@@ -17,7 +17,18 @@ partenaire.get("/", async (req, res) => {
   });
 
 
-
+  partenaire.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+    const uuid = req.params.uuid;
+    try {
+      const partenaire = await Partenaire.findByPk(uuid);
+      res.status(200).json(partenaire);
+    } catch (err) {
+      res.status(422).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  });
 
 
 module.exports = partenaire;
