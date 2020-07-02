@@ -1,19 +1,41 @@
-GET http://localhost:8000/admin/41d402a0-bdbe-45bf-a59a-d5428a48e4a5
+GET http://localhost:8000/admin/3884a2eb-7a7f-46c9-a17d-0231549461b2 
 
 
 ###
 
-POST http://localhost:8000/admin
+POST  http://localhost:8000/admin
+Content-Type: application/json
+X-Http-Method-Override: MERGE
+
+{
+    "email": "anthonin64@lookup.fr",
+    "password": "toto"
+    
+}
+
+###
+
+POST http://localhost:8000/admin/login
 Content-Type: application/json
 
 {
-    "companyName": "Lookup",
+    "email": "anthonin64@lookup.fr",
+    "password": "toto"
+}
+
+
+
+####
+
+PUT http://localhost:8000/admin/login/3884a2eb-7a7f-46c9-a17d-0231549461b2
+Content-Type: application/json
+
+{
+    "companyName": "LookUp",
+    "streetName": "rue des cerisiers",
     "streetNumber": 12,
-    "streetName": "allée des sabots sans chevaux",
     "postalCode": 40200,
     "city": "Tarnos",
-    "email": "anthonin@lookup.com",
-    "phone": 699227722,
-    "siret": "12345678901234",
-    "password": "toto55"
+    "phone": 666666666,
+    "siret": "12345678901234"
 }

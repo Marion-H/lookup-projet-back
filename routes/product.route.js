@@ -4,6 +4,7 @@ const product = express.Router();
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
+const auth = require("../middlewares/auth");
 
 const Product = require("../model/product.model");
 
@@ -26,7 +27,7 @@ product.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-product.post("/", async (req, res) => {
+product.post("/", auth, async (req, res) => {
   const { name, price, description, picture } = req.body;
   try {
     const products = await Product.create({
@@ -41,34 +42,40 @@ product.post("/", async (req, res) => {
   }
 });
 
-product.put("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
-  const uuid = req.params.uuid;
-  const { name, price, description, picture } = req.body;
-  try {
-    const products = await Product.update(
-      {
-        name,
-        price,
-        description,
-        picture,
-      },
-      { where: { uuid } }
-    );
-    res.status(204).send(products);
-  } catch (err) {
-    res.status(400).json(err);
+product.put(
+  "/:uuid",
+  auth,
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const uuid = req.params.uuid;
+    const { name, price, description, picture } = req.body;
+    try {
+      await Product.update(
+        {
+          name,
+          price,
+          description,
+          picture,
+        },
+        { where: { uuid } }
+      );
+      res.status(204).end();
+    } catch (err) {
+      res.status(400).json(err);
+    }
   }
-});
+);
 
 product.delete(
   "/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
     try {
-      const products = await Product.destroy({ where: { uuid } });
+      await Product.destroy({ where: { uuid } });
 
-      res.status(204).json(products);
+      res.status(204).end();
     } catch (err) {
       res.status(404).json({
         status: "error",
