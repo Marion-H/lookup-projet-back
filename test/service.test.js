@@ -62,10 +62,32 @@ describe("SERVICE", () => {
         const res = await chai
           .request(server)
           .post(`/services`)
-          .send({ title, desciption, logo });
+          .send({
+            title: "test",
+            description: "blablablbla",
+            logo: "http://image.jpg",
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         res.body.should.have.keys(serviceKeys);
+      } catch (err) {
+        throw err;
+      }
+    });
+
+    it("should fail to create", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .post("/services")
+          // .set("Authorization", `Bearer ${token}`)
+          .send({
+            title: "test",
+          });
+        console.log(res.body);
+        res.should.have.status(422);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(["status", "message"]);
       } catch (err) {
         throw err;
       }

@@ -29,12 +29,12 @@ service.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-service.post("/", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
-  const { title, desciption, logo } = req.body;
+service.post("/", async (req, res) => {
+  const { title, description, logo } = req.body;
   try {
     const services = await Service.create({
       title,
-      desciption,
+      description,
       logo,
     });
     res.status(201).json(services);
