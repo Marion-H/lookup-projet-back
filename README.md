@@ -18,16 +18,16 @@
 
     >> DB_PASSWORD=superpassword
 
-    >> DB_DATABASE=api_test
+    >> DB_DATABASE=lookup
 
     >> DB_DIALECT=mysql
 
-    >> DB_TEST=test
+    >> DB_TEST=api_test
 
     >> PORT=8080
 
     >> SECRET=bRwuPD4fwPchsqc6J9tC3NT4f
-    
+
 
 
 ## Execution and writing of tests
