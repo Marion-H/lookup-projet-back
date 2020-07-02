@@ -1,7 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelizeInstance = require("../sequelize");
 const bcrypt = require("bcrypt");
-const lookup = require("../routes/lookup.route");
 
 const Lookup = sequelizeInstance.define(
   "Lookup",

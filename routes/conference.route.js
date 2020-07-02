@@ -4,8 +4,12 @@ const conference = express.Router();
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
+const auth = require('../middlewares/auth')
+
 
 const Conference = require("../model/conference.model");
+
+
 
 conference.get("/", async (req, res) => {
   const conferences = await Conference.findAll();
@@ -30,7 +34,7 @@ conference.get(
   }
 );
 
-conference.post("/", async (req, res) => {
+conference.post("/", auth,async (req, res) => {
   const { title, subject, date, picture } = req.body;
   try {
     const conferences = await Conference.create({
@@ -49,7 +53,7 @@ conference.post("/", async (req, res) => {
 });
 
 conference.put(
-    "/:uuid",
+    "/:uuid",auth,
     regExpIntegrityCheck(uuidv4RegExp),
     async (req, res) => {
       const uuid = req.params.uuid;
@@ -70,7 +74,7 @@ conference.put(
 
 
   conference.delete(
-    "/:uuid",
+    "/:uuid",auth,
     regExpIntegrityCheck(uuidv4RegExp),
     async (req, res) => {
       const { uuid } = req.params;

@@ -1,12 +1,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Press = require("../model/press.model");
+const Lookup = require("../model/lookUp.model");
 
 let should = chai.should();
 
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
@@ -20,10 +22,24 @@ const pressKey = [
 ];
 
 let press;
+let token;
 
 describe("PRESS", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
 
     press = await Press.create({
       title: "test",
@@ -49,9 +65,7 @@ describe("PRESS", () => {
   describe("get a press relation", () => {
     it("should return an unique press relation", async () => {
       try {
-        const res = await chai
-          .request(server)
-          .get(`/press/${press.uuid}`);
+        const res = await chai.request(server).get(`/press/${press.uuid}`);
         res.should.have.status(200);
         res.body.should.be.a("object");
       } catch (err) {
@@ -63,11 +77,15 @@ describe("PRESS", () => {
   describe("post a press relation", () => {
     it("should post new press relation", async () => {
       try {
-        const res = await chai.request(server).post("/press").send({
-          title: "test",
-          description: "Loreum ipsum",
-          picture: "https://www.test.fr/test.jpg",
-        });
+        const res = await chai
+          .request(server)
+          .post("/press")
+          .set("Authorization", ` Bearer ${token}`)
+          .send({
+            title: "test",
+            description: "Loreum ipsum",
+            picture: "https://www.test.fr/test.jpg",
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         res.body.should.have.keys(pressKey);
@@ -77,10 +95,13 @@ describe("PRESS", () => {
     });
     it("should fail to create", async () => {
       try {
-        const res = await chai.request(server).post("/press").send({
-          title: "test",
-        });
-        console.log(res.body);
+        const res = await chai
+          .request(server)
+          .post("/press")
+          .set("Authorization", ` Bearer ${token}`)
+          .send({
+            title: "test",
+          });
         res.should.have.status(422);
         res.body.should.be.a("object");
         res.body.should.have.keys(["status", "message"]);
@@ -95,21 +116,8 @@ describe("PRESS", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/press/${press.uuid}`);
-        res.should.have.status(204);
-        res.body.should.be.a("object");
-      } catch (err) {
-        throw err;
-      }
-    });
-  });
-  
-  describe("delete a press relation", () => {
-    it("should delete a press relation", async () => {
-      try {
-        const res = await chai
-          .request(server)
-          .delete(`/press/${press.uuid}`);
+          .put(`/press/${press.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -118,4 +126,18 @@ describe("PRESS", () => {
     });
   });
 
+  describe("delete a press relation", () => {
+    it("should delete a press relation", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .delete(`/press/${press.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
 });

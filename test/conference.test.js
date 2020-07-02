@@ -6,10 +6,12 @@ let should = chai.should();
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
 const Conference = require("../model/conference.model");
+const Lookup = require("../model/lookUp.model");
 
 const conferenceKey = [
   "uuid",
@@ -23,9 +25,24 @@ const conferenceKey = [
 
 let conference;
 
+let token;
+
 describe("CONFERENCE", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
 
     conference = await Conference.create({
       title: "test",
@@ -66,12 +83,16 @@ describe("CONFERENCE", () => {
   describe("post a conference", () => {
     it("should post new conference", async () => {
       try {
-        const res = await chai.request(server).post("/conferences").send({
+        const res = await chai
+          .request(server)
+          .post("/conferences")
+          .set("Authorization", ` Bearer ${token}`)
+          .send({
             title: "test",
             subject: "Loreum ipsum",
             date: "1990-05-28",
             picture: "https://www.test.fr/test.jpg",
-        });
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         res.body.should.have.keys(conferenceKey);
@@ -81,9 +102,13 @@ describe("CONFERENCE", () => {
     });
     it("should fail to create", async () => {
       try {
-        const res = await chai.request(server).post("/conferences").send({
-          titl: "test",
-        });
+        const res = await chai
+          .request(server)
+          .post("/conferences")
+          .set("Authorization", ` Bearer ${token}`)
+          .send({
+            titl: "test",
+          });
         res.should.have.status(422);
         res.body.should.be.a("object");
         res.body.should.have.keys(["status", "message"]);
@@ -92,13 +117,14 @@ describe("CONFERENCE", () => {
       }
     });
   });
-  
+
   describe("put a conference", () => {
     it("should put a conference", async () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/conferences/${conference.uuid}`);
+          .put(`/conferences/${conference.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -112,7 +138,8 @@ describe("CONFERENCE", () => {
       try {
         const res = await chai
           .request(server)
-          .delete(`/conferences/${conference.uuid}`);
+          .delete(`/conferences/${conference.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -120,9 +147,4 @@ describe("CONFERENCE", () => {
       }
     });
   });
-
-
 });
-
-
-

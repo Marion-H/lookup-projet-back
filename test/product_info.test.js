@@ -6,11 +6,13 @@ let should = chai.should();
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken")
 
 chai.use(chaiHttp);
 
 const ProductInfo = require("../model/product_info.model");
 const Product = require("../model/product.model");
+const Lookup = require("../model/lookUp.model")
 
 const product_info_key = [
   "uuid",
@@ -22,7 +24,7 @@ const product_info_key = [
   "createdAt",
   "updatedAt",
   "ProductUuid",
-  "Product"
+  "Product",
 ];
 
 const productKey = [
@@ -53,16 +55,32 @@ const product_sample = {
 let productInfo;
 let product;
 
+let token;
+
+
 describe("PRODUCT INFO", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
 
     product = await Product.create(product_sample);
     productInfo = {
       ...product_info_sample,
       ProductUuid: product.uuid,
     };
-    
+
     productInfos = await ProductInfo.create(productInfo);
   });
 
@@ -98,10 +116,14 @@ describe("PRODUCT INFO", () => {
   describe("post a new product info", () => {
     it("should create a new product info", async () => {
       try {
-        const res = await chai.request(server).post("/products_info").send({
-          ...product_info_sample,
-      ProductUuid: product.uuid
-        });
+        const res = await chai
+          .request(server)
+          .post("/products_info")
+          .set("Authorization", ` Bearer ${token}`)
+          .send({
+            ...product_info_sample,
+            ProductUuid: product.uuid,
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         // res.body.should.have.keys(product_info_key);
@@ -116,7 +138,8 @@ describe("PRODUCT INFO", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/products_info/${productInfos.uuid}`);
+          .put(`/products_info/${productInfos.uuid}`)
+          .set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -130,7 +153,7 @@ describe("PRODUCT INFO", () => {
       try {
         const res = await chai
           .request(server)
-          .delete(`/products_info/${productInfos.uuid}`);
+          .delete(`/products_info/${productInfos.uuid}`).set("Authorization", ` Bearer ${token}`);
         res.should.have.status(204);
       } catch (err) {
         throw err;
