@@ -38,7 +38,9 @@ partenaire.post("/", async (req, res) => {
   const { title, description, logo } = req.body;
   try {
     const partenaire = await Partenaire.create({
-      title, description, logo
+      title,
+      description,
+      logo,
     });
     res.status(201).json(partenaire);
   } catch (err) {
@@ -49,6 +51,25 @@ partenaire.post("/", async (req, res) => {
   }
 });
 
-
+partenaire.put(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    const { title, description, logo } = req.body;
+    try {
+      const partenaire = await Partenaire.update(
+        { title, description, logo },
+        { where: { uuid } }
+      );
+      res.status(204).json(partenaire);
+    } catch (err) {
+      res.status(400).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  }
+);
 
 module.exports = partenaire;

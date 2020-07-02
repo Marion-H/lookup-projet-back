@@ -87,4 +87,19 @@ describe("PARTENAIRE", () => {
       }
     });
   });
+
+  describe("put a partenaire", () => {
+    it("should put a partenaire", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .put(`/partenaires/${partenaire.uuid}`);
+        res.should.have.status(204);
+        res.body.should.be.a("object");
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
 });
