@@ -12,22 +12,30 @@
 - npm run dev : Start local development server using nodemon
 - create an .env file at the root of the folder to be able to connect to your database
   - exemple file .env :
-    - DB_HOST=localhost
-    - DB_USER=toto
-    - DB_PASSWORD=superpassword
-    - DB_DATABASE=api_test
-    - DB_DIALECT=mysql
-    - DB_TEST=test
+    > DB_HOST=localhost
+    > DB_USER=toto
+    > DB_PASSWORD=superpassword
+    > DB_DATABASE=api_test
+    > DB_DIALECT=mysql
+    > DB_TEST=test
+    > PORT=8080
+    > SECRET=bRwuPD4fwPchsqc6J9tC3NT4f
+
 
 ## Execution and writing of tests
 
 - npm test : Start test server using mocha
-- Using Chai and Chai-http with method _should_
+- Using *Chai* and *Chai-http* with method *`should`*
 
 ## Curious behavior
 
-- importing a route in a model will crash or not validate your tests
+- importing a route in a model will *crash* or *not validate* your tests
 
 ## Autors
 
-`Marc , Adèle, Jp, Tommy, Marion`
+[Marc](https://github.com/Neo-Ryo)
+[Marion](https://github.com/Marion-H)
+[Adèle](https://github.com/Adelebp)
+[Jp](https://github.com/jpgrindcore007)
+[Tommy](https://github.com/Tommychinn)
+
