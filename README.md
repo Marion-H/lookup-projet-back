@@ -13,13 +13,21 @@
 - **create an .env file** at the root of the folder to be able to connect to your database
   > exemple file .env :
     >> DB_HOST=localhost
+
     >> DB_USER=toto
+
     >> DB_PASSWORD=superpassword
+
     >> DB_DATABASE=api_test
+
     >> DB_DIALECT=mysql
+
     >> DB_TEST=test
+
     >> PORT=8080
+
     >> SECRET=bRwuPD4fwPchsqc6J9tC3NT4f
+    
 
 
 ## Execution and writing of tests
