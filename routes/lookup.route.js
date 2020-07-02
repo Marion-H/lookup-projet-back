@@ -46,7 +46,7 @@ lookup.post("/login", async (req, res) => {
           email: lookup.dataValues.email,
         },
         process.env.secret,
-        { expiresIn: "1h" }
+        { expiresIn: 60*60 }
       );
       res.status(201).json({ token });
     }

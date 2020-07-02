@@ -1,15 +1,18 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Carousel = require("../model/carousel.model");
-const LookUp = require("../model/lookUp.model");
 
 let should = chai.should();
 
 let server = require("../index");
 
+
+
 const sequelize = require("../sequelize");
 
 chai.use(chaiHttp);
+
+
 
 const carouselKey = [
   "uuid",
@@ -20,14 +23,15 @@ const carouselKey = [
   "createdAt",
   "updatedAt",
 ];
-const sampleLogin = { email: "anthonin64@lookup.fr", password: "toto" };
 
 let carousel;
-let login;
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhlZjUxMjc5LWQ4MzktNDIwOS1hZDFhLTFkMTNjNTZiMmMxNSIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTM2NzM3MDQsImV4cCI6MTU5MzY3NzMwNH0.Bfb4RRh1R_U__CtWfcdvmJnCs2BzlCegKkrO5j-zTqc"
+
 
 describe("CAROUSSEL", () => {
   before(async () => {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({force : true });
+
 
     carousel = await Carousel.create({
       title: "test",
@@ -35,8 +39,6 @@ describe("CAROUSSEL", () => {
       link: "https://www.test.fr",
       picture: "https://www.test.fr/test.jpg",
     });
-
-    login = await LookUp.create(sampleLogin);
   });
 
   // describe("get all carousel", () => {
@@ -70,38 +72,34 @@ describe("CAROUSSEL", () => {
   describe("post a carousel", () => {
     it("should post new carousel", async () => {
       try {
-        const token = await chai.request(server).post("/admin/login").send(sampleLogin)
-        console.log(token);
-
-        // const res = await chai.request(server).post("/carousels").send({
-        //   title: "test",
-        //   description: "Loreum ipsum",
-        //   link: "https://www.test.fr",
-        //   picture: "https://www.test.fr/test.jpg",
-        // });
-        // console.log(res);
-        // res.should.have.status(201);
-        // res.body.should.be.a("object");
-        // res.body.should.have.keys(carouselKey);
+        const res = await chai.request(server).post("/carousels").set('Authorization', `Bearer ${token}`).send({
+          title: "test",
+          description: "Loreum ipsum",
+          link: "https://www.test.fr",
+          picture: "https://www.test.fr/test.jpg",
+        });
+        // console.log(res)
+        res.should.have.status(201);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(carouselKey);
+      } catch (err) {
+        throw err;
+      }
+    });
+    it("should fail to create", async () => {
+      try {
+        const res = await chai.request(server).post("/carousels").send({
+          title: "test",
+        });
+        console.log(res.body);
+        res.should.have.status(422);
+        res.body.should.be.a("object");
+        res.body.should.have.keys(["status", "message"]);
       } catch (err) {
         throw err;
       }
     });
   });
-  //   it("should fail to create", async () => {
-  //     try {
-  //       const res = await chai.request(server).post("/carousels").send({
-  //         title: "test",
-  //       });
-  //       console.log(res.body);
-  //       res.should.have.status(422);
-  //       res.body.should.be.a("object");
-  //       res.body.should.have.keys(["status", "message"]);
-  //     } catch (err) {
-  //       throw err;
-  //     }
-  //   });
-  // });
 
   // describe("put a carousel", () => {
   //   it("should put a carousel", async () => {
