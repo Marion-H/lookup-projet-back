@@ -57,4 +57,64 @@ client.post("/", async (req, res) => {
   }
 });
 
+client.put(
+  "/:uuid",
+
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    const {
+      companyName,
+      streetNumber,
+      streetName,
+      city,
+      postalCode,
+      email,
+      phone,
+      siret,
+    } = req.body;
+
+    try {
+      const client = await Client.update(
+        {
+          companyName,
+          streetNumber,
+          streetName,
+          city,
+          postalCode,
+          email,
+          phone,
+          siret,
+        },
+        { where: { uuid } }
+      );
+
+      res.status(204).json(client);
+    } catch (err) {
+      res.status(400).json({
+        status: "error",
+        message: "invalid request",
+      });
+    }
+  }
+);
+
+client.delete(
+  "/:uuid",
+  regExpIntegrityCheck(uuidv4RegExp),
+  async (req, res) => {
+    const { uuid } = req.params;
+    try {
+      const client = await Client.destroy({ where: { uuid } });
+
+      res.status(204).json(client);
+    } catch (err) {
+      res.status(404).json({
+        status: "error",
+        message: "client not found",
+      });
+    }
+  }
+);
+
 module.exports = client;

@@ -6,10 +6,12 @@ let should = chai.should();
 let server = require("../index");
 
 const sequelize = require("../sequelize");
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
 const Conference = require("../model/conference.model");
+const Lookup = require("../model/lookUp.model");
 
 const conferenceKey = [
   "uuid",
@@ -23,12 +25,24 @@ const conferenceKey = [
 
 let conference;
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU4NjQ3NGFjLTM5MDItNDRlYS05YjQyLTdkMTllNDRlYWViZiIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTM2NzcxMDYsImV4cCI6MTU5MzY4MDcwNn0.xxz9C5g-gMnHwXRHJSzl8TQggSURoDlZ6UiE8csEEq0";
+let token;
 
 describe("CONFERENCE", () => {
   before(async () => {
     await sequelize.sync({ force: true });
+
+    admin = await Lookup.create({
+      email: "anthonin64@lookup.fr",
+      password: "toto",
+    });
+    token = jwt.sign(
+      {
+        id: admin.dataValues.uuid,
+        email: admin.dataValues.email,
+      },
+      process.env.secret,
+      { expiresIn: "1h" }
+    );
 
     conference = await Conference.create({
       title: "test",
