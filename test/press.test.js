@@ -102,7 +102,6 @@ describe("PRESS", () => {
           .send({
             title: "test",
           });
-        console.log(res.body);
         res.should.have.status(422);
         res.body.should.be.a("object");
         res.body.should.have.keys(["status", "message"]);

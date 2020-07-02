@@ -1,4 +1,4 @@
-GET http://localhost:8000/admin/e33acc41-a746-4a10-b71e-c13ba2abcb54
+GET http://localhost:8000/admin/3884a2eb-7a7f-46c9-a17d-0231549461b2 
 
 
 ###
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ####
 
-PUT http://localhost:8000/admin/login/53afb808-1aa6-49e2-8cef-264d9118467e
+PUT http://localhost:8000/admin/login/3884a2eb-7a7f-46c9-a17d-0231549461b2
 Content-Type: application/json
 
 {

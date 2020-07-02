@@ -31,7 +31,6 @@ press.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
 });
 
 press.post("/", auth, async (req, res) => {
-  console.log(req.body);
   const { title, description, picture } = req.body;
   try {
     const pressR = await Press.create({

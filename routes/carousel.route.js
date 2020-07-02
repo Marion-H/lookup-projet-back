@@ -34,7 +34,6 @@ carousel.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
 carousel.post("/", auth, async (req, res) => {
   const { title, description, link, picture } = req.body;
   try {
-    console.log("hello");
     const carousel = await Carousel.create({
       title,
       description,
