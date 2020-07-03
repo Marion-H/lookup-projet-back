@@ -9,10 +9,11 @@ const carousel = require("./routes/carousel.route");
 const product = require("./routes/product.route");
 const product_info = require("./routes/product_info.route");
 const lookup = require("./routes/lookup.route");
+const service = require("./routes/service.route");
 const client = require("./routes/client.route");
 const conference = require("./routes/conference.route");
 const press = require("./routes/press.route");
-const partenaire = require("./routes/partenaire.route")
+const partenaire = require("./routes/partenaire.route");
 
 const app = express();
 
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 8000;
 app.use(helmet());
 app.use(express.json());
 
+app.use("/services", service);
 app.use("/carousels", carousel);
 app.use("/products", product);
 app.use("/products_info", product_info);
@@ -28,7 +30,7 @@ app.use("/admin", lookup);
 app.use("/clients", client);
 app.use("/conferences", conference);
 app.use("/press", press);
-app.use("/partenaires", partenaire)
+app.use("/partenaires", partenaire);
 
 app.get("/", (req, res) => {
   res.status(200).send("Here is our API!");
