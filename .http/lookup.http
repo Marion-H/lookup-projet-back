@@ -5,7 +5,6 @@ GET http://localhost:8000/admin/3884a2eb-7a7f-46c9-a17d-0231549461b2
 
 POST  http://localhost:8000/admin
 Content-Type: application/json
-X-Http-Method-Override: MERGE
 
 {
     "email": "anthonin64@lookup.fr",
