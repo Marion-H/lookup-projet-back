@@ -40,8 +40,9 @@ lookup.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const lookup = await Lookup.findOne({ where: { email } });
-    console.log(lookup);
+    console.log(password);
     if (lookup.validatePassword(password)) {
+      console.log("password is valid");
       const token = jwt.sign(
         {
           id: lookup.dataValues.uuid,
@@ -50,6 +51,7 @@ lookup.post("/login", async (req, res) => {
         process.env.secret,
         { expiresIn: "1h" }
       );
+      console.log(token);
       res.status(201).json({ token });
     }
   } catch (err) {
