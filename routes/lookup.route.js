@@ -40,6 +40,7 @@ lookup.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const lookup = await Lookup.findOne({ where: { email } });
+    console.log(lookup);
     if (lookup.validatePassword(password)) {
       const token = jwt.sign(
         {
