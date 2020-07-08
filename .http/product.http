@@ -17,6 +17,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2NmEyNmQ5L
     "picture": "iamzepicture.jpg"
 }
 
+###
+
+GET http://localhost:8000/products/897502ba-a03a-4cdf-b629-0442f0fcd9dd/products_info
+
+
+
 
 ###
 PUT http://localhost:8000/products/30273232-15d3-488c-8446-d1798cb68faa
