@@ -39,6 +39,8 @@ product_info.post("/", auth, async (req, res) => {
   const {
     title,
     description,
+    description2,
+    description3,
     picture,
     picture2,
     picture3,
@@ -48,6 +50,8 @@ product_info.post("/", auth, async (req, res) => {
     const products = await ProductInfo.create({
       title,
       description,
+      description2,
+      description3,
       picture,
       picture2,
       picture3,
@@ -68,6 +72,8 @@ product_info.put(
     const {
       title,
       description,
+      description2,
+      description3,
       picture,
       picture2,
       picture3,
@@ -78,6 +84,8 @@ product_info.put(
         {
           title,
           description,
+          description2,
+          description3,
           picture,
           picture2,
           picture3,

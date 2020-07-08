@@ -1,13 +1,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const Product = require("../model/product.model");
-const Lookup = require("../model/lookUp.model")
+const ProductInfo = require("../model/product_info.model");
+const Lookup = require("../model/lookUp.model");
 let should = chai.should();
 
 let server = require("../index");
 
 const sequelize = require("../sequelize");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 chai.use(chaiHttp);
 
@@ -19,6 +20,20 @@ const productKey = [
   "picture",
   "createdAt",
   "updatedAt",
+];
+
+const product_info_key = [
+  "uuid",
+  "title",
+  "description",
+  "description2",
+  "description3",
+  "picture",
+  "picture2",
+  "picture3",
+  "createdAt",
+  "updatedAt",
+  "ProductUuid",
 ];
 
 let product;
@@ -47,6 +62,17 @@ describe("PRODUCT", () => {
       description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
       picture: "https//www.test.fr/test.jpg",
     });
+
+    product_info = await ProductInfo.create({
+      title: "test",
+      description: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      picture: "https//www.test.fr/test.jpg",
+      picture2: "https//www.test.fr/test.jpg",
+      picture3: "https//www.test.fr/test.jpg",
+      description2: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      description3: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      ProductUuid: product.uuid
+    });
   });
 
   describe("get all product", () => {
@@ -70,6 +96,22 @@ describe("PRODUCT", () => {
         res.should.have.status(200);
         res.body.should.be.a("object");
         res.body.should.have.keys(productKey);
+      } catch (err) {
+        throw err;
+      }
+    });
+  });
+
+  describe("get product_info with unique product", () => {
+    it("should return an array of product_info with unique product", async () => {
+      try {
+        const res = await chai
+          .request(server)
+          .get(`/products/${product.uuid}/products_info`);
+        res.should.have.status(200);
+        res.body.should.be.a("array");
+        res.body[0].should.have.keys(product_info_key);
+        res.body.length.should.be.eql(1);
       } catch (err) {
         throw err;
       }

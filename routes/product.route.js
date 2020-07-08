@@ -7,6 +7,7 @@ const { uuidv4RegExp } = require("../middlewares/regexCheck");
 const auth = require("../middlewares/auth");
 
 const Product = require("../model/product.model");
+const ProductInfo = require("../model/product_info.model")
 
 product.get("/", async (req, res) => {
   const products = await Product.findAll();
@@ -26,6 +27,20 @@ product.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+product.get("/:uuid/products_info", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
+  const uuid = req.params.uuid;
+  try {
+    const product_info = await ProductInfo.findAll({
+      // include: { model: Product },
+      where: { ProductUuid :uuid },
+    });
+    res.status(200).json(product_info);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 
 product.post("/", auth, async (req, res) => {
   const { name, price, description, picture } = req.body;

@@ -18,6 +18,8 @@ const product_info_key = [
   "uuid",
   "title",
   "description",
+  "description2",
+  "description3",
   "picture",
   "picture2",
   "picture3",
@@ -43,6 +45,8 @@ const product_info_sample = {
   picture: "https//www.test.fr/test.jpg",
   picture2: "https//www.test.fr/test.jpg",
   picture3: "https//www.test.fr/test.jpg",
+  description2: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+  description3: "lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
 };
 
 const product_sample = {
