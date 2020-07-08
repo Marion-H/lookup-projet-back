@@ -4,14 +4,17 @@ GET http://localhost:8000/products_info
 ###
 POST http://localhost:8000/products_info
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2NmEyNmQ5LTRkNDctNGU5NC05NDEyLTg1N2FiOWE4MDY4NCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQxOTUwMjksImV4cCI6MTU5NDE5ODYyOX0.ydZl2aINkZX52z2f4lsKkunYgVH2ggWJJ14wOOhJISg
 
 {
-    "title": "Hello",
+  "title": "Hello",
   "description": "Lorem ipsum",
+  "description2": "Lorem ipsum",
+  "description3": "Lorem ipsum",
   "picture":"star.jpg",
   "picture2":"star2.jpg",
   "picture3":"star3.jpg",
-  "ProductUuid": "2ac9b93b-bc08-4078-bb19-dc448af87322"
+  "ProductUuid": "897502ba-a03a-4cdf-b629-0442f0fcd9dd"
 }
 
 ###

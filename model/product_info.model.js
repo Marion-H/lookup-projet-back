@@ -16,6 +16,14 @@ const Product_info = SequelizeInstance.define("Product_info", {
     type: Sequelize.STRING(1000),
     allowNull: true,
   },
+  description2: {
+    type: Sequelize.STRING(1000),
+    allowNull: true,
+  },
+  description3: {
+    type: Sequelize.STRING(1000),
+    allowNull: true,
+  },
   picture: {
     type: Sequelize.STRING(250),
     allowNull: false,

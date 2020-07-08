@@ -8,6 +8,7 @@ GET http://localhost:8000/products/30273232-15d3-488c-8446-d1798cb68faa
 
 POST http://localhost:8000/products
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2NmEyNmQ5LTRkNDctNGU5NC05NDEyLTg1N2FiOWE4MDY4NCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQxOTUwMjksImV4cCI6MTU5NDE5ODYyOX0.ydZl2aINkZX52z2f4lsKkunYgVH2ggWJJ14wOOhJISg
 
 {
     "name": "support man",
