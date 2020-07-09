@@ -1,4 +1,4 @@
-GET http://localhost:8000/admin/d66a26d9-4d47-4e94-9412-857ab9a80684
+GET http://localhost:8000/admin/09abcb57-4076-47fa-95dd-78ce3be653a4
 
 
 ###
@@ -17,6 +17,7 @@ Content-Type: application/json
 POST http://localhost:8000/admin/login
 Content-Type: application/json
 
+
 {
     "email": "anthonin64@lookup.fr",
     "password": "toto"
@@ -26,8 +27,10 @@ Content-Type: application/json
 
 ####
 
-PUT http://localhost:8000/admin/login/3884a2eb-7a7f-46c9-a17d-0231549461b2
+PUT http://localhost:8000/admin/login/09abcb57-4076-47fa-95dd-78ce3be653a4
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA5YWJjYjU3LTQwNzYtNDdmYS05NWRkLTc4Y2UzYmU2NTNhNCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQzMjY2MzAsImV4cCI6MTU5NDMzMDIzMH0.VClbSACwAuXNUrl4z-ukcjnP9RfrTUiXq5elJ5uPN20
+
 
 {
     "companyName": "LookUp",
@@ -36,5 +39,7 @@ Content-Type: application/json
     "postalCode": 40200,
     "city": "Tarnos",
     "phone": 666666666,
-    "siret": "12345678901234"
+    "siret": "12345678901234",
+    "email": "anthonin@lookup.fr",
+    "password": "toto64"
 }
