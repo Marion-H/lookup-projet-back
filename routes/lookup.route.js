@@ -49,7 +49,8 @@ lookup.post("/login", async (req, res) => {
         process.env.secret,
         { expiresIn: "1h" }
       );
-      res.status(201).json({ token });
+      const uuid = lookup.uuid
+      res.status(201).json({ token, uuid });
     }
   } catch (err) {
     res.status(400).json(err);
