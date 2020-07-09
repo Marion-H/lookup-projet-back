@@ -6,7 +6,7 @@ const lookup = express.Router();
 
 const regExpIntegrityCheck = require("../middlewares/regexCheck");
 const { uuidv4RegExp } = require("../middlewares/regexCheck");
-const auth = require("../middlewares/auth")
+const auth = require("../middlewares/auth");
 
 const Lookup = require("../model/lookUp.model");
 
@@ -58,7 +58,8 @@ lookup.post("/login", async (req, res) => {
 });
 
 lookup.put(
-  "/login/:uuid",auth,
+  "/login/:uuid",
+  auth,
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
@@ -68,6 +69,8 @@ lookup.put(
       streetNumber,
       postalCode,
       city,
+      email,
+      password,
       phone,
       siret,
     } = req.body;
@@ -79,6 +82,8 @@ lookup.put(
           streetNumber,
           postalCode,
           city,
+          email,
+          password,
           phone,
           siret,
         },

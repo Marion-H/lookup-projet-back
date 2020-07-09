@@ -106,6 +106,8 @@ describe("LOOKUP", () => {
             city: "Tarnos",
             phone: 06,
             siret: "12345678901234",
+            email: "anthonin64@lookup.com",
+            password: "toto64",
           });
         res.should.have.status(201);
         res.should.be.a("object");
