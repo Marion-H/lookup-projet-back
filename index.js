@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
 
@@ -19,8 +20,28 @@ const partenaire = require("./routes/partenaire.route");
 const app = express();
 
 const PORT = process.env.PORT || 8000;
+const env = process.env.NODE_ENV;
 
-app.use(cors());
+const whitelist = process.env.CLIENT_URLS.split(", ");
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1 || (env !== "production" && !origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+if (process.env.NODE_ENV !== "test") {
+  const logStyle = {
+    production: "short",
+    development: "dev",
+  };
+  app.use(morgan(logStyle[env]));
+}
 app.use(helmet());
 app.use(express.json());
 
@@ -40,12 +61,12 @@ app.get("/", (req, res) => {
 
 async function main() {
   try {
-    await sequelize.sync({alter: true});
+    await sequelize.sync({ alter: true });
     await sequelize.authenticate();
     console.log("Database succesfully joined");
     app.listen(PORT, (err) => {
       if (err) throw new Error(err.message);
-      console.log(`Server is running on htpp://localhost:${PORT}`);
+      env !== "production" && console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (err) {
     console.log("Unable to join database", err.message);
