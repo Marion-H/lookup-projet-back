@@ -22,7 +22,7 @@
     DB_DIALECT=mysql #one of mysql | postgres | mssql | mariadb | sqlite
     DB_TEST=sample_test #database for test env
     PORT=5050 #port to listen for your server
-    SECRET=yoursecretforjwt #secret used for jwt encryption
+    secret=yoursecretforjwt #secret used for jwt encryption
     CLIENT_URLS=http://local.fr #list of authorized clients.
     #if you need to set many clients, please add ", " between each of them like the following:
     # CLIENT_URLS=http://local.fr, http://test.com, http://johndoe.io
