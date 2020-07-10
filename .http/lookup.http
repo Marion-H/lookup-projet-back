@@ -27,9 +27,9 @@ Content-Type: application/json
 
 ####
 
-PUT http://localhost:8000/admin/login/a46875d9-8507-4c3d-b874-8c5c67eb0660
+PUT http://localhost:8000/admin/login/5aa2dc46-0c7a-4496-aefc-858ea89558dc
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE0Njg3NWQ5LTg1MDctNGMzZC1iODc0LThjNWM2N2ViMDY2MCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQzNzQ0ODAsImV4cCI6MTU5NDM3ODA4MH0.iU3njcI0U9kT0cDDzNBkbKFcXU8BiSneWpcgwtuTUyE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVhYTJkYzQ2LTBjN2EtNDQ5Ni1hZWZjLTg1OGVhODk1NThkYyIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQzNzYyOTIsImV4cCI6MTU5NDM3OTg5Mn0.lk9MjPRySB2lSlsF9ZzD_y-x-FHK_hf4kA_kZRPP0Ug
 
 
 {
