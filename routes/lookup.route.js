@@ -49,7 +49,7 @@ lookup.post("/login", async (req, res) => {
         process.env.secret,
         { expiresIn: "1h" }
       );
-      const uuid = lookup.uuid
+      const uuid = lookup.uuid;
       res.status(201).json({ token, uuid });
     }
   } catch (err) {
@@ -75,6 +75,7 @@ lookup.put(
       siret,
     } = req.body;
     try {
+      const passHash = bcrypt.hashSync(password, bcrypt.genSaltSync());
       const lookup = await Lookup.update(
         {
           companyName,
@@ -83,7 +84,7 @@ lookup.put(
           postalCode,
           city,
           email,
-          password,
+          password: passHash,
           phone,
           siret,
         },

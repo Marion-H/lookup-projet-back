@@ -27,7 +27,10 @@ const whitelist = process.env.CLIENT_URLS.split(", ");
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1 || (env !== "production" && !origin)) {
+      if (
+        whitelist.indexOf(origin) !== -1 ||
+        (env !== "production" && !origin)
+      ) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -66,7 +69,8 @@ async function main() {
     console.log("Database succesfully joined");
     app.listen(PORT, (err) => {
       if (err) throw new Error(err.message);
-      env !== "production" && console.log(`Server is running on http://localhost:${PORT}`);
+      env !== "production" &&
+        console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (err) {
     console.log("Unable to join database", err.message);
