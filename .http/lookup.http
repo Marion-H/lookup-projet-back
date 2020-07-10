@@ -1,8 +1,8 @@
-GET http://localhost:8000/admin/09abcb57-4076-47fa-95dd-78ce3be653a4
+GET http://localhost:8000/admin/21d48ceb-51af-489f-99f6-1880b314ead7
 
 
 ###
-
+//Create user
 POST  http://localhost:8000/admin
 Content-Type: application/json
 
@@ -19,17 +19,17 @@ Content-Type: application/json
 
 
 {
-    "email": "anthonin64@lookup.fr",
-    "password": "toto"
+    "email": "anthonin@lookup.fr",
+    "password": "toto64"
 }
 
 
 
 ####
 
-PUT http://localhost:8000/admin/login/09abcb57-4076-47fa-95dd-78ce3be653a4
+PUT http://localhost:8000/admin/login/a46875d9-8507-4c3d-b874-8c5c67eb0660
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA5YWJjYjU3LTQwNzYtNDdmYS05NWRkLTc4Y2UzYmU2NTNhNCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQzMjY2MzAsImV4cCI6MTU5NDMzMDIzMH0.VClbSACwAuXNUrl4z-ukcjnP9RfrTUiXq5elJ5uPN20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE0Njg3NWQ5LTg1MDctNGMzZC1iODc0LThjNWM2N2ViMDY2MCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQzNzQ0ODAsImV4cCI6MTU5NDM3ODA4MH0.iU3njcI0U9kT0cDDzNBkbKFcXU8BiSneWpcgwtuTUyE
 
 
 {
