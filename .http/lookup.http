@@ -19,8 +19,8 @@ Content-Type: application/json
 
 
 {
-    "email": "anthonin@lookup.fr",
-    "password": "toto64"
+    "email": "antonin@lookup.fr",
+    "password": "toto"
 }
 
 
