@@ -47,7 +47,7 @@ lookup.post("/login", async (req, res) => {
           email: lookup.dataValues.email,
         },
         process.env.secret,
-        { expiresIn: "1m" }
+        { expiresIn: "1h" }
       );
       const uuid = lookup.uuid;
       res.status(201).json({ token, uuid });
