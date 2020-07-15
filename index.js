@@ -16,6 +16,7 @@ const client = require("./routes/client.route");
 const conference = require("./routes/conference.route");
 const press = require("./routes/press.route");
 const partenaire = require("./routes/partenaire.route");
+const sendMail = require('./routes/sendMail.route')
 const Lookup = require("./model/lookUp.model");
 
 const app = express();
@@ -58,6 +59,7 @@ app.use("/clients", client);
 app.use("/conferences", conference);
 app.use("/press", press);
 app.use("/partenaires", partenaire);
+app.use("/sendMail", sendMail)
 
 app.get("/", (req, res) => {
   res.status(200).send("Here is our API!");
