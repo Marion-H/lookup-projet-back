@@ -6,15 +6,15 @@ require("dotenv").config();
 
 const sendMail = express.Router();
 
-const { USERMAIL, PASSMAIL } = process.env;
+// const { USERMAIL, PASSMAIL } = process.env;
 
 sendMail.post("/", async (req, res) => {
   const { message, emailFrom, subject, emailTo, html } = req.body;
   const transport = {
     service: "gmail",
     auth: {
-      user: USERMAIL,
-      pass: PASSMAIL,
+      user: "testlookup1@gmail.com",
+      pass: "Hello123654789!",
     },
   };
 
