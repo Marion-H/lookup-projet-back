@@ -4,7 +4,7 @@ GET http://localhost:8000/products_info
 ###
 POST http://localhost:8000/products_info
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2NmEyNmQ5LTRkNDctNGU5NC05NDEyLTg1N2FiOWE4MDY4NCIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTQxOTUwMjksImV4cCI6MTU5NDE5ODYyOX0.ydZl2aINkZX52z2f4lsKkunYgVH2ggWJJ14wOOhJISg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzODEzOGIzLTgxMmUtNGVkMC04MmQ1LWNkZTQ4MTU0YTU4MyIsImVtYWlsIjoiYW50b25pbkBsb29rdXAuZnIiLCJpYXQiOjE1OTQ4MjA0NjAsImV4cCI6MTU5NDgyNDA2MH0.p2zvyYncnCQ8HncT5WAhQ7H1US3G3Z_ibeeLE9IZ3Rc
 
 {
   "title": "Hello",
@@ -14,7 +14,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2NmEyNmQ5L
   "picture":"star.jpg",
   "picture2":"star2.jpg",
   "picture3":"star3.jpg",
-  "ProductUuid": "897502ba-a03a-4cdf-b629-0442f0fcd9dd"
+  "ProductUuid": "0f6f83e1-34da-4bd2-9f8d-c6288319d8c2"
 }
 
 ###

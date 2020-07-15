@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const sendMail = express.Router();
 
-// const { USERMAIL, PASSMAIL } = process.env;
 
 sendMail.post("/", async (req, res) => {
   const { message, emailFrom, subject, emailTo, html } = req.body;
