@@ -8,18 +8,16 @@ const sendMail = express.Router();
 
 const { USERMAIL, PASSMAIL } = process.env;
 
-const transport = {
-  service: "gmail",
-  auth: {
-    user: USERMAIL,
-    pass: PASSMAIL,
-  },
-};
-
-const smtpTransport = nodemailer.createTransport(transport);
-
 sendMail.post("/", async (req, res) => {
-  const { message, emailFrom, subject, emailTo, html, quantity } = req.body;
+  const { message, emailFrom, subject, emailTo, html } = req.body;
+  const transport = {
+    service: "gmail",
+    auth: {
+      user: USERMAIL,
+      pass: PASSMAIL,
+    },
+  };
+
   const emailOption = {
     from: emailFrom,
     to: emailTo,
@@ -29,11 +27,19 @@ sendMail.post("/", async (req, res) => {
   };
 
   try {
-    await smtpTransport.sendMail(emailOption, (err, data) => {
-      if (err) {
-        console.log("error:", err);
+    const smtpTransport = nodemailer.createTransport(transport);
+    await smtpTransport.verify((error, success) => {
+      if (success) {
+        console.log("Server is ready to take our messages");
       } else {
-        console.log("ok");
+        console.log(error);
+      }
+    });
+    await smtpTransport.sendMail(emailOption, (err, data) => {
+      if (data) {
+        res.status(201).send("email Send");
+      } else {
+        throw new Error(err)
       }
     });
     res.status(201).send("email Send");
