@@ -36,10 +36,10 @@ partenaire.get(
 );
 
 partenaire.post("/", auth, async (req, res) => {
-  const { title, description, logo } = req.body;
+  const { link, description, logo } = req.body;
   try {
     const partenaire = await Partenaire.create({
-      title,
+      link,
       description,
       logo,
     });
@@ -58,10 +58,10 @@ partenaire.put(
   regExpIntegrityCheck(uuidv4RegExp),
   async (req, res) => {
     const { uuid } = req.params;
-    const { title, description, logo } = req.body;
+    const { link, description, logo } = req.body;
     try {
       const partenaire = await Partenaire.update(
-        { title, description, logo },
+        { link, description, logo },
         { where: { uuid } }
       );
       res.status(204).json(partenaire);
