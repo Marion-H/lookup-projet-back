@@ -12,7 +12,7 @@ sendMail.post("/", async (req, res) => {
   const transport = {
     service: "gmail",
     auth: {
-      user: "testlookup1@gmail.com",
+      user: "messagerie.lookupfr@gmail.com",
       pass: "Hello123654789!",
     },
   };
