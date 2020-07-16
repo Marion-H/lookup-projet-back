@@ -16,6 +16,7 @@ const client = require("./routes/client.route");
 const conference = require("./routes/conference.route");
 const press = require("./routes/press.route");
 const partenaire = require("./routes/partenaire.route");
+const sendMail = require('./routes/sendMail.route')
 const Lookup = require("./model/lookUp.model");
 
 const app = express();
@@ -26,7 +27,8 @@ const env = process.env.NODE_ENV;
 const whitelist = process.env.CLIENT_URLS.split(", ");
 
 app.use(
-  cors({
+  cors(
+    {
     origin: function (origin, callback) {
       if (
         whitelist.indexOf(origin) !== -1 ||
@@ -37,7 +39,8 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-  })
+  }
+  )
 );
 if (process.env.NODE_ENV !== "test") {
   const logStyle = {
@@ -58,6 +61,7 @@ app.use("/clients", client);
 app.use("/conferences", conference);
 app.use("/press", press);
 app.use("/partenaires", partenaire);
+app.use("/sendMail", sendMail)
 
 app.get("/", (req, res) => {
   res.status(200).send("Here is our API!");
@@ -86,56 +90,3 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 module.exports = app;
-
-// sequelize
-//     .sync()
-//     .then(() => {
-//       return sequelize.authenticate();
-//     })
-//     .then(() => {
-//       // we create two roles only if they don't exists
-//       return Promise.all([
-//         Role.findCreateFind({ where: { label: "ADMIN" } }),
-//         Role.findCreateFind({ where: { label: "USER" } }),
-//       ]);
-//     })
-//     .then(([admin, user]) => {
-//       // then we create two users for testing
-//       return Promise.all([
-//         User.findCreateFind({
-//           where: { email: "admin@dev.com" },
-//           defaults: {
-//             password: "admin",
-//             firstName: "admin",
-//             lastName: "admin",
-//             localisation: "admin",
-//             country: "France",
-//             phone_number: 0656565656,
-//             RoleId: admin[0].id,
-//           },
-//         }),
-//         User.findCreateFind({
-//           where: { email: "user@dev.com" },
-//           defaults: {
-//             password: "user",
-//             firstName: "user",
-//             lastName: "user",
-//             localisation: "user",
-//             country: "France",
-//             phone_number: 0656565656,
-//             RoleId: user[0].id,
-//           },
-//         }),
-//       ]);
-//     })
-//     .then(() => {
-//       app.listen(port, (err) => {
-//         if (err) {
-//           throw new Error("Something really bad happened ...");
-//         }
-//         console.log(`Server is listening on ${port}`);
-//       });
-//     })
-//     .catch((err) => {
-//       console.log("unable to join database", err.message);
-//     });

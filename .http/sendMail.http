@@ -1,0 +1,10 @@
+POST http://localhost:8000/sendMail
+Content-Type: application/json
+
+{
+    "emailFrom":"doudou6500@gmail.com",
+    "emailTo":"doudou6500@gmail.com",
+    "subject":"Hello Everybody",
+    "message":"BlaBlabla ",
+    "html":"<b>BlaBlabla</b>"
+}
