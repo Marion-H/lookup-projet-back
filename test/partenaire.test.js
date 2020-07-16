@@ -14,15 +14,15 @@ chai.use(chaiHttp);
 
 const partenaireKey = [
   "uuid",
-  "title",
+  "link",
   "description",
   "logo",
   "createdAt",
   "updatedAt",
 ];
 
-let partenaire
-let token
+let partenaire;
+let token;
 
 describe("PARTENAIRE", () => {
   before(async () => {
@@ -41,9 +41,8 @@ describe("PARTENAIRE", () => {
       { expiresIn: "1h" }
     );
 
-
     partenaire = await Partenaire.create({
-      title: "test",
+      link: "test",
       description: "Loreum ipsum",
       logo: "https://www.test.fr/test.jpg",
     });
@@ -80,11 +79,15 @@ describe("PARTENAIRE", () => {
   describe("post a partenaire", () => {
     it("should post new partenaire", async () => {
       try {
-        const res = await chai.request(server).post("/partenaires").set("Authorization", `Bearer ${token}`).send({
-          title: "test",
-          description: "Loreum ipsum",
-          logo: "https://www.test.fr/test.jpg",
-        });
+        const res = await chai
+          .request(server)
+          .post("/partenaires")
+          .set("Authorization", `Bearer ${token}`)
+          .send({
+            link: "test",
+            description: "Loreum ipsum",
+            logo: "https://www.test.fr/test.jpg",
+          });
         res.should.have.status(201);
         res.body.should.be.a("object");
         res.body.should.have.keys(partenaireKey);
@@ -94,9 +97,13 @@ describe("PARTENAIRE", () => {
     });
     it("should fail to create", async () => {
       try {
-        const res = await chai.request(server).post("/partenaires").set("Authorization", `Bearer ${token}`).send({
-          title: "test",
-        });
+        const res = await chai
+          .request(server)
+          .post("/partenaires")
+          .set("Authorization", `Bearer ${token}`)
+          .send({
+            link: "test",
+          });
         console.log(res.body);
         res.should.have.status(422);
         res.body.should.be.a("object");
@@ -112,7 +119,8 @@ describe("PARTENAIRE", () => {
       try {
         const res = await chai
           .request(server)
-          .put(`/partenaires/${partenaire.uuid}`).set("Authorization", `Bearer ${token}`);
+          .put(`/partenaires/${partenaire.uuid}`)
+          .set("Authorization", `Bearer ${token}`);
         res.should.have.status(204);
         res.body.should.be.a("object");
       } catch (err) {
@@ -120,7 +128,6 @@ describe("PARTENAIRE", () => {
       }
     });
   });
-
 
   describe("delete a partenaire", () => {
     it("should delete a single partenaire", async () => {
@@ -136,6 +143,4 @@ describe("PARTENAIRE", () => {
       }
     });
   });
-
-
 });
