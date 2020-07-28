@@ -130,7 +130,6 @@ describe("PRODUCT INFO", () => {
           });
         res.should.have.status(201);
         res.body.should.be.a("object");
-        // res.body.should.have.keys(product_info_key);
       } catch (err) {
         throw err;
       }
