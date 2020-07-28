@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const sendMail = express.Router();
 
-
 sendMail.post("/", async (req, res) => {
   const { message, emailFrom, subject, emailTo, html } = req.body;
   const transport = {
@@ -38,7 +37,7 @@ sendMail.post("/", async (req, res) => {
       if (data) {
         res.status(201).send("email Send");
       } else {
-        throw new Error(err)
+        throw new Error(err);
       }
     });
     res.status(201).send("email Send");
