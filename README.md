@@ -9,8 +9,9 @@
 
 - **git clone**
 - **npm install**
-- **npm run dev** : Start local development server using **nodemon**
+- **create environement variables**
 - **create your .env file**
+- **npm run dev** : Start local development server using **nodemon**
 
 ## Environment variables
 
