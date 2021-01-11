@@ -24,6 +24,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const env = process.env.NODE_ENV;
 
+// const whitelist = process.env.CLIENT_URLS.split(", ");
 
 app.use(
   cors(
