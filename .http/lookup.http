@@ -1,4 +1,4 @@
-GET http://localhost:8000/admin/21d48ceb-51af-489f-99f6-1880b314ead7
+GET http://localhost:8000/admin/038138b3-812e-4ed0-82d5-cde48154a583
 
 
 ###
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 ####
 
-PUT http://localhost:8000/admin/login/5aa2dc46-0c7a-4496-aefc-858ea89558dc
+PUT http://localhost:8000/admin/login/038138b3-812e-4ed0-82d5-cde48154a583
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzODEzOGIzLTgxMmUtNGVkMC04MmQ1LWNkZTQ4MTU0YTU4MyIsImVtYWlsIjoiYW50b25pbkBsb29rdXAuZnIiLCJpYXQiOjE1OTQ4MjA0NjAsImV4cCI6MTU5NDgyNDA2MH0.p2zvyYncnCQ8HncT5WAhQ7H1US3G3Z_ibeeLE9IZ3Rc
 

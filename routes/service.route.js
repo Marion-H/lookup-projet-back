@@ -33,16 +33,16 @@ service.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
 service.post("/",auth, async (req, res) => {
   const { title, description, logo } = req.body;
   try {
-    const services = await Service.create({
+    const serviceRes = await Service.create({
       title,
       description,
       logo,
     });
-    res.status(201).json(services);
+    res.status(201).json(serviceRes);
   } catch (err) {
     res.status(422).json({
       status: "error",
-      message: "invalid request",
+      message: err,
     });
   }
 });
@@ -57,16 +57,16 @@ service.put(
     const { title, description, logo } = req.body;
 
     try {
-      const service = await Service.update(
+      const serviceRes = await Service.update(
         { title, description, logo },
         { where: { uuid } }
       );
 
-      res.status(204).json(service);
+      res.status(204).json(serviceRes);
     } catch (err) {
       res.status(400).json({
         status: "error",
-        message: "invalid request",
+        message: err,
       });
     }
   }
@@ -79,9 +79,9 @@ service.delete(
   async (req, res) => {
     const { uuid } = req.params;
     try {
-      const service = await Service.destroy({ where: { uuid } });
+      const serviceRes = await Service.destroy({ where: { uuid } });
 
-      res.status(204).json(service);
+      res.status(204).json(serviceRes);
     } catch (err) {
       res.status(404).json({
         status: "error",

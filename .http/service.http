@@ -1,10 +1,24 @@
+GET http://localhost:8000/services
+
+
 ###
 POST http://localhost:8000/services
 Content-Type: application/json
-Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY5Y2RlNGMxLTI0Y2QtNDlhMC1hNTQ2LWE5YjhlNmMzNmE5YiIsImVtYWlsIjoiYW50aG9uaW42NEBsb29rdXAuZnIiLCJpYXQiOjE1OTM3MjEyMTcsImV4cCI6MTU5MzcyNDgxN30.MyL3HLltrtvBKn5vwv13LQbQZoiR01kcWo2OfJ_485w
+Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzODEzOGIzLTgxMmUtNGVkMC04MmQ1LWNkZTQ4MTU0YTU4MyIsImVtYWlsIjoiYW50b25pbkBsb29rdXAuZnIiLCJpYXQiOjE2MTAxMjQ0ODAsImV4cCI6MTYxMDEyODA4MH0.shfTZXK3hc85a7csPu_9HIQzAk563Qvfdxywr3Qo-Vs
 
 {
     "title": "hello",
     "description": "blabla",
     "logo": "htpp://www.test.fr/logo.jpg"
+}
+
+###
+PUT http://localhost:8000/services/52240cd3-561e-49e1-a814-e7d2d8e48345
+Content-Type: application/json
+Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAzODEzOGIzLTgxMmUtNGVkMC04MmQ1LWNkZTQ4MTU0YTU4MyIsImVtYWlsIjoiYW50b25pbkBsb29rdXAuZnIiLCJpYXQiOjE2MTAxMjQ0ODAsImV4cCI6MTYxMDEyODA4MH0.shfTZXK3hc85a7csPu_9HIQzAk563Qvfdxywr3Qo-Vs
+
+{
+    "title": "Atelier",
+    "description": "blabla",
+    "logo": "https://i.imgur.com/Jt3PxgN.png"
 }

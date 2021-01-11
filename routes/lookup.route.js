@@ -13,7 +13,7 @@ const Lookup = require("../model/lookUp.model");
 lookup.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const lookupRes = await Lookup.findAll({where: {uuid}, attributes: {exclude: ['password']}});
+    const lookupRes = await Lookup.findByPk(uuid);
     res.status(200).json(lookupRes);
   } catch (error) {
     res.status(422).json({
