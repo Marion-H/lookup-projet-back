@@ -13,8 +13,8 @@ const Lookup = require("../model/lookUp.model");
 lookup.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
-    const lookup = await Lookup.findByPk(uuid);
-    res.status(200).json(lookup);
+    const lookupRes = await Lookup.findByPk(uuid);
+    res.status(200).json(lookupRes);
   } catch (error) {
     res.status(422).json({
       status: "error",
@@ -39,17 +39,18 @@ lookup.post("/", async (req, res) => {
 lookup.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
-    const lookup = await Lookup.findOne({ where: { email } });
-    if (lookup.validatePassword(password)) {
+    const lookupRes = await Lookup.findOne({ where: { email } });
+    if (lookupRes.validatePassword(password)) {
       const token = jwt.sign(
         {
-          id: lookup.dataValues.uuid,
-          email: lookup.dataValues.email,
+          id: lookupRes.dataValues.uuid,
+          email: lookupRes.dataValues.email,
         },
         process.env.secret,
         { expiresIn: "1h" }
       );
-      const uuid = lookup.uuid;
+      const uuid = lookupRes.uuid;
+      console.log(token)
       res.status(201).json({ token, uuid });
     }
   } catch (err) {
@@ -76,7 +77,7 @@ lookup.put(
     } = req.body;
     try {
       const passHash = bcrypt.hashSync(password, bcrypt.genSaltSync());
-      const lookup = await Lookup.update(
+      const lookupRes = await Lookup.update(
         {
           companyName,
           streetName,
@@ -90,7 +91,7 @@ lookup.put(
         },
         { where: { uuid } }
       );
-      res.status(201).json(lookup);
+      res.status(201).json(lookupRes);
     } catch (error) {
       res.status(400).json(error);
     }
