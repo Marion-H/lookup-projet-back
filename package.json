@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test PORT=4001 mocha --timeout 10000 --exit",
-    "start": "node index.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon index.js",
     "drop": "node dropinit.js"
   },
