@@ -35,18 +35,18 @@ lookup.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   }
 });
 
-lookup.post("/", async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const lookup = await Lookup.findOrCreate({
-      where: { email },
-      defaults: { password },
-    });
-    res.status(201).end();
-  } catch (error) {
-    res.status(422).json(error.message);
-  }
-});
+// lookup.post("/", async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const lookup = await Lookup.findOrCreate({
+//       where: { email },
+//       defaults: { password },
+//     });
+//     res.status(201).end();
+//   } catch (error) {
+//     res.status(422).json(error.message);
+//   }
+// });
 
 lookup.post("/login", async (req, res) => {
   const { email, password } = req.body;
