@@ -26,22 +26,22 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const env = process.env.NODE_ENV;
 
-// const whitelist = process.env.CLIENT_URLS.split(", ");
+const whitelist = process.env.CLIENT_URLS.split(", ");
 
 app.use(
   cors(
-  //   {
-  //   origin: function (origin, callback) {
-  //     if (
-  //       whitelist.indexOf(origin) !== -1 ||
-  //       (env !== "production" && !origin)
-  //     ) {
-  //       callback(null, true);
-  //     } else {
-  //       callback(new Error("Not allowed by CORS"));
-  //     }
-  //   },
-  // }
+    {
+    origin: function (origin, callback) {
+      if (
+        whitelist.indexOf(origin) !== -1 ||
+        (env !== "production" && !origin)
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  }
   )
 );
 if (process.env.NODE_ENV !== "test") {
