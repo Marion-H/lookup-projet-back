@@ -10,6 +10,18 @@ const auth = require("../middlewares/auth");
 
 const Lookup = require("../model/lookUp.model");
 
+lookup.get("/", async (req, res) => {
+  try {
+    const lookupRes = await Lookup.findAll();
+    res.status(200).json(lookupRes);
+  } catch (error) {
+    res.status(422).json({
+      status: "error",
+      message: "invalid request",
+    });
+  }
+});
+
 lookup.get("/:uuid", regExpIntegrityCheck(uuidv4RegExp), async (req, res) => {
   const uuid = req.params.uuid;
   try {
